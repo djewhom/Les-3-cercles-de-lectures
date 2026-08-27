@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les 3 Cercles de Lecture — Dragon Ball Z</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c1:#c2410c; --c1l:#fff7ed; --c1m:#fed7aa; --c1b:#ea580c;
+  --c2:#1d4ed8; --c2l:#eff6ff; --c2m:#bfdbfe; --c2b:#2563eb;
+  --c3:#15803d; --c3l:#f0fdf4; --c3m:#bbf7d0; --c3b:#16a34a;
+  --gold:#b45309; --goldb:#d97706;
+  --bg:#f5f0e8;
+  --panel:#fffef9;
+  --text:#1c1917; --text2:#44403c; --text3:#78716c;
+  --scroll:#e8dcc8;
+  --parchment:#fdf6e3;
+}
+body{
+  background:var(--bg);
+  font-family:'Rajdhani',sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:28px 12px 48px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a0896a' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ── Header ── */
+.page-header{
+  text-align:center;
+  margin-bottom:24px;
+  background:var(--parchment);
+  border:2px solid rgba(180,83,9,.3);
+  border-radius:12px;
+  padding:18px 32px 14px;
+  max-width:820px;
+  width:100%;
+  box-shadow:0 2px 12px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.8);
+  position:relative;
+}
+.page-header::before,.page-header::after{
+  content:'';position:absolute;top:8px;width:12px;height:12px;
+  border-radius:50%;background:var(--gold);opacity:.6;
+}
+.page-header::before{left:14px}.page-header::after{right:14px}
+.eyebrow{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+h1{font-family:'Bangers',cursive;font-size:clamp(32px,5.5vw,68px);letter-spacing:3px;line-height:1;color:#1c1917}
+h1 em{color:var(--c1b);font-style:normal}
+.tagline{margin-top:6px;font-size:12.5px;color:var(--text3);font-family:'Share Tech Mono',monospace;letter-spacing:1.5px}
+
+/* ── Nav tabs ── */
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;justify-content:center}
+.tab{
+  font-family:'Bangers',cursive;font-size:15px;letter-spacing:1.5px;
+  padding:8px 20px;border-radius:8px;border:2px solid;cursor:pointer;
+  transition:all .2s;background:var(--parchment);
+}
+.tab[data-t="1"]{border-color:var(--c1);color:var(--c1)}
+.tab[data-t="2"]{border-color:var(--c2);color:var(--c2)}
+.tab[data-t="3"]{border-color:var(--c3);color:var(--c3)}
+.tab.active[data-t="1"]{background:var(--c1);color:#fff}
+.tab.active[data-t="2"]{background:var(--c2);color:#fff}
+.tab.active[data-t="3"]{background:var(--c3);color:#fff}
+.tab:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12)}
+
+/* ── Panels ── */
+.panel{display:none;width:100%;max-width:1100px;animation:fadeIn .3s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── Scroll banner header ── */
+.scroll-banner{
+  background:var(--scroll);
+  border:2px solid rgba(160,110,60,.4);
+  border-radius:10px;
+  padding:16px 24px 14px;
+  margin-bottom:18px;
+  position:relative;
+  box-shadow:0 3px 16px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.5);
+}
+.scroll-banner::before,.scroll-banner::after{
+  content:'';position:absolute;top:50%;transform:translateY(-50%);
+  width:18px;height:60px;border-radius:4px;
+  background:linear-gradient(to bottom,#c8a87a,#a07848,#c8a87a);
+}
+.scroll-banner::before{left:-10px}.scroll-banner::after{right:-10px}
+.scroll-title{font-family:'Bangers',cursive;font-size:clamp(22px,3.5vw,38px);letter-spacing:2px;margin-bottom:4px}
+.scroll-sub{font-size:14px;color:var(--text2);line-height:1.5;font-weight:400}
+.scroll-sub b{font-weight:700}
+.scroll-question{
+  display:inline-flex;align-items:flex-start;gap:12px;margin-top:10px;
+  background:var(--parchment);border:1.5px solid rgba(180,83,9,.3);
+  border-radius:8px;padding:10px 16px;font-size:13.5px;color:var(--text2);
+  font-style:italic;
+}
+.scroll-question .q-icon{font-size:20px;line-height:1;flex-shrink:0}
+
+/* ── Grid layouts ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+@media(max-width:800px){.grid3,.grid4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+
+/* ── Boxes ── */
+.box{
+  background:var(--panel);
+  border-radius:10px;
+  padding:16px;
+  border:1.5px solid rgba(0,0,0,.08);
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.box-title{
+  font-family:'Bangers',cursive;font-size:16px;letter-spacing:1.5px;
+  margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid;
+  display:flex;align-items:center;gap:7px;
+}
+.box ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.box li{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.5;color:var(--text2)}
+.box li .icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.box li strong{color:var(--text);font-weight:700;display:block;font-size:13.5px}
+
+/* color variants */
+.box-c1 .box-title{color:var(--c1);border-color:var(--c1m)}
+.box-c2 .box-title{color:var(--c2);border-color:var(--c2m)}
+.box-c3 .box-title{color:var(--c3);border-color:var(--c3m)}
+.box-gold .box-title{color:var(--gold);border-color:#e7c68a}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dot-c1{background:var(--c1b)}.dot-c2{background:var(--c2b)}.dot-c3{background:var(--c3b)}.dot-gold{background:var(--goldb)}
+
+/* ── Gear / cog center for C2 ── */
+.gear-center{
+  background:var(--panel);border-radius:14px;padding:20px;
+  border:1.5px solid rgba(0,0,0,.08);box-shadow:0 2px 10px rgba(0,0,0,.06);
+  margin-bottom:14px;
+}
+.gear-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:center;justify-items:center}
+.gear-item{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  font-family:'Bangers',cursive;font-size:14px;letter-spacing:1px;
+  text-align:center;padding:12px 8px;border-radius:50%;
+  width:90px;height:90px;justify-content:center;
+  border:2px solid;
+}
+.gear-center-item{
+  width:110px;height:110px;font-size:16px;
+  border-width:3px;
+}
+.gear-sub{font-size:9.5px;font-family:'Share Tech Mono',monospace;letter-spacing:.5px;opacity:.8;font-style:normal;margin-top:2px}
+@media(max-width:700px){.gear-grid{grid-template-columns:repeat(3,1fr)}.gear-center-item{grid-column:2}}
+
+/* ── C3 round layout ── */
+.c3-intro{
+  background:var(--panel);border-radius:12px;padding:16px 20px;
+  border:1.5px solid rgba(21,128,61,.2);
+  margin-bottom:14px;text-align:center;
+  font-size:14px;color:var(--text2);line-height:1.6;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.c3-intro strong{color:var(--c3);font-size:15px}
+
+/* ── Checklist box ── */
+.checklist{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.check-item{
+  display:flex;align-items:center;gap:7px;
+  background:var(--panel);border-radius:8px;padding:8px 14px;
+  font-family:'Share Tech Mono',monospace;font-size:12px;
+  border:1.5px solid rgba(0,0,0,.08);box-shadow:0 1px 6px rgba(0,0,0,.05);
+  font-weight:700;letter-spacing:.5px;
+}
+.check-item .ck{width:16px;height:16px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;flex-shrink:0}
+
+/* ── Quote bar ── */
+.quote-bar{
+  background:var(--parchment);
+  border-left:4px solid;border-radius:0 8px 8px 0;
+  padding:12px 16px;margin-bottom:14px;
+  font-size:14px;font-style:italic;color:var(--text2);line-height:1.6;
+}
+.quote-bar strong{font-style:normal;font-size:13px;font-family:'Share Tech Mono',monospace;letter-spacing:.5px;display:block;margin-top:4px}
+
+/* ── Footer note ── */
+.foot-note{
+  background:var(--parchment);
+  border:2px solid rgba(0,0,0,.1);border-radius:10px;
+  padding:14px 22px;margin-top:6px;
+  font-size:13px;line-height:1.65;color:var(--text2);
+  text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.foot-note b{color:var(--text)}
+.foot-note .hl-c1{color:var(--c1b);font-weight:700}
+.foot-note .hl-c2{color:var(--c2b);font-weight:700}
+.foot-note .hl-c3{color:var(--c3b);font-weight:700}
+
+/* ── Overview SVG diagram ── */
+.overview{
+  background:var(--panel);
+  border-radius:14px;border:1.5px solid rgba(0,0,0,.08);
+  padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);
+  margin-bottom:20px;overflow:hidden;
+}
+.overview svg{display:block;width:100%;max-width:900px;margin:0 auto}
+@keyframes orbitA{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes orbitB{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes flowArr{to{stroke-dashoffset:-20}}
+.ring1{animation:orbitA 20s linear infinite;transform-origin:370px 370px}
+.ring2{animation:orbitB 30s linear infinite;transform-origin:370px 370px}
+.orb-pulse{animation:pulse 3s ease-in-out infinite}
+.flow{stroke-dasharray:7 5;animation:flowArr 1s linear infinite}
+</style>
+</head>
+<body>
+
+<!-- ── Page header ── -->
+<div class="page-header">
+  <p class="eyebrow">Dragonballologie · Théorie narrative</p>
+  <h1>Les <em>3 Cercles</em> de Lecture</h1>
+  <p class="tagline">Du monde fictif · À l'intention de l'auteur · Au contexte réel de production</p>
+</div>
+
+<!-- ── Overview diagram ── -->
+<div class="overview" style="max-width:900px;width:100%">
+<svg viewBox="0 0 740 740" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="fC3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#bbf7d0" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#f0fdf4" stop-opacity=".1"/>
+    </radialGradient>
+    <radialGradient id="fC2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#bfdbfe" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#eff6ff" stop-opacity=".1"/>
+    </radialGradient>
+    <radialGradient id="fC1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fed7aa" stop-opacity=".7"/>
+      <stop offset="100%" stop-color="#fff7ed" stop-opacity=".15"/>
+    </radialGradient>
+    <filter id="sh"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,.1)"/></filter>
+    <filter id="sh2"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,.08)"/></filter>
+    <marker id="mkOr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0L0,6L8,3z" fill="#ea580c"/></marker>
+    <marker id="mkBl" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0L0,6L8,3z" fill="#2563eb"/></marker>
+    <marker id="mkGr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0L0,6L8,3z" fill="#16a34a"/></marker>
+  </defs>
+
+  <circle cx="370" cy="370" r="330" fill="url(#fC3)" stroke="#15803d" stroke-width="2.5" stroke-opacity=".5"/>
+  <circle cx="370" cy="370" r="218" fill="url(#fC2)" stroke="#1d4ed8" stroke-width="2.5" stroke-opacity=".55"/>
+  <circle cx="370" cy="370" r="112" fill="url(#fC1)" stroke="#c2410c" stroke-width="2.5" stroke-opacity=".7"/>
+
+  <!-- orbit dots C3 -->
+  <g class="ring2">
+    <circle cx="370" cy="42" r="7" fill="#15803d" opacity=".6" filter="url(#sh2)"/>
+    <circle cx="698" cy="370" r="6" fill="#15803d" opacity=".5" filter="url(#sh2)"/>
+    <circle cx="370" cy="698" r="7" fill="#15803d" opacity=".55" filter="url(#sh2)"/>
+    <circle cx="42" cy="370" r="6" fill="#15803d" opacity=".45" filter="url(#sh2)"/>
+    <circle cx="137" cy="137" r="5" fill="#15803d" opacity=".3"/>
+    <circle cx="603" cy="137" r="5" fill="#15803d" opacity=".3"/>
+  </g>
+
+  <!-- orbit dots C2 -->
+  <g class="ring1">
+    <circle cx="370" cy="154" r="6" fill="#1d4ed8" opacity=".65" filter="url(#sh2)"/>
+    <circle cx="586" cy="370" r="5" fill="#1d4ed8" opacity=".5" filter="url(#sh2)"/>
+    <circle cx="370" cy="586" r="6" fill="#1d4ed8" opacity=".6" filter="url(#sh2)"/>
+    <circle cx="154" cy="370" r="5" fill="#1d4ed8" opacity=".5" filter="url(#sh2)"/>
+  </g>
+
+  <!-- flow arrows -->
+  <path d="M370 258 L370 160" fill="none" stroke="#1d4ed8" stroke-width="1.5" stroke-opacity=".5" marker-end="url(#mkBl)" class="flow"/>
+  <path d="M370 157 L370 68" fill="none" stroke="#15803d" stroke-width="1.5" stroke-opacity=".45" marker-end="url(#mkGr)" class="flow"/>
+
+  <!-- Centre C1 -->
+  <circle cx="370" cy="370" r="54" fill="#fff7ed" stroke="#c2410c" stroke-width="3" class="orb-pulse" filter="url(#sh)"/>
+  <text x="370" y="356" text-anchor="middle" font-family="Bangers,cursive" font-size="13" fill="#c2410c" letter-spacing="1.5">1er CERCLE</text>
+  <text x="370" y="373" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="9.5" font-weight="700" fill="#9a3412">COHÉRENCE</text>
+  <text x="370" y="387" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="9.5" font-weight="700" fill="#9a3412">INTERNE</text>
+
+  <!-- C1 tags -->
+  <line x1="370" y1="316" x2="370" y2="290" stroke="#c2410c" stroke-width="1.2" stroke-opacity=".5"/>
+  <rect x="286" y="270" width="168" height="22" rx="5" fill="#fff7ed" stroke="#c2410c" stroke-width="1.2" stroke-opacity=".6" filter="url(#sh2)"/>
+  <text x="370" y="285" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="700" fill="#9a3412">Logique des personnages</text>
+  <line x1="340" y1="408" x2="306" y2="435" stroke="#c2410c" stroke-width="1.2" stroke-opacity=".5"/>
+  <rect x="216" y="430" width="136" height="22" rx="5" fill="#fff7ed" stroke="#c2410c" stroke-width="1.2" stroke-opacity=".6" filter="url(#sh2)"/>
+  <text x="284" y="445" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="700" fill="#9a3412">Règles de l'univers</text>
+  <line x1="400" y1="408" x2="434" y2="435" stroke="#c2410c" stroke-width="1.2" stroke-opacity=".5"/>
+  <rect x="392" y="430" width="162" height="22" rx="5" fill="#fff7ed" stroke="#c2410c" stroke-width="1.2" stroke-opacity=".6" filter="url(#sh2)"/>
+  <text x="473" y="445" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="700" fill="#9a3412">Chronologie &amp; causalité</text>
+
+  <!-- C2 label + nodes -->
+  <text x="370" y="180" text-anchor="middle" font-family="Bangers,cursive" font-size="14" fill="#1d4ed8" letter-spacing="2">2ème CERCLE — INTENTION DE L'AUTEUR</text>
+  <circle cx="210" cy="222" r="30" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.8" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="210" y="219" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">Émotion</text>
+  <text x="210" y="231" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="9" fill="#1d4ed8">suspense</text>
+  <circle cx="150" cy="370" r="30" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.8" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="150" y="367" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">Humour</text>
+  <text x="150" y="379" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="9" fill="#1d4ed8">légèreté</text>
+  <circle cx="210" cy="518" r="30" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.8" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="210" y="514" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">Liens &amp;</text>
+  <text x="210" y="527" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">émotions</text>
+  <circle cx="530" cy="222" r="30" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.8" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="530" y="219" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">Thèmes &amp;</text>
+  <text x="530" y="231" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">messages</text>
+  <circle cx="590" cy="370" r="30" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.8" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="590" y="367" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">Enjeux</text>
+  <text x="590" y="379" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="9" fill="#1d4ed8">tension</text>
+  <circle cx="530" cy="518" r="30" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.8" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="530" y="514" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">Espoir &amp;</text>
+  <text x="530" y="527" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">optimisme</text>
+
+  <!-- C3 label + nodes -->
+  <text x="370" y="66" text-anchor="middle" font-family="Bangers,cursive" font-size="14" fill="#15803d" letter-spacing="2">3ème CERCLE — COHÉRENCE MÉTA</text>
+  <rect x="30" y="84" width="106" height="36" rx="7" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="83" y="98" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="11" font-weight="700" fill="#14532d">Créateurs</text>
+  <text x="83" y="112" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="8" fill="#15803d">Toriyama · Torishima</text>
+  <rect x="604" y="84" width="106" height="36" rx="7" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="657" y="98" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="11" font-weight="700" fill="#14532d">Industrie</text>
+  <text x="657" y="112" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="8" fill="#15803d">Toei · studios</text>
+  <rect x="620" y="344" width="106" height="36" rx="7" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="673" y="358" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="11" font-weight="700" fill="#14532d">Diffusion</text>
+  <text x="673" y="372" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="8" fill="#15803d">Netflix · ADN</text>
+  <rect x="14" y="344" width="106" height="36" rx="7" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="67" y="358" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="11" font-weight="700" fill="#14532d">Dérivés</text>
+  <text x="67" y="372" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="8" fill="#15803d">figures · jeux vidéo</text>
+  <rect x="30" y="612" width="106" height="36" rx="7" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="83" y="626" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="11" font-weight="700" fill="#14532d">Impact</text>
+  <text x="83" y="640" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="8" fill="#15803d">culturel · héritage</text>
+  <rect x="604" y="612" width="106" height="36" rx="7" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" stroke-opacity=".65" filter="url(#sh2)"/>
+  <text x="657" y="626" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="11" font-weight="700" fill="#14532d">Marketing</text>
+  <text x="657" y="640" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="8" fill="#15803d">comm. · events</text>
+
+  <text x="370" y="718" text-anchor="middle" font-family="Share Tech Mono,monospace" font-size="9" fill="rgba(0,0,0,.3)" letter-spacing=".8">Passer d'un cercle à l'autre · c'est élargir sa compréhension et enrichir son regard</text>
+</svg>
+</div>
+
+<!-- ── Nav tabs ── -->
+<div class="tabs">
+  <button class="tab active" data-t="1" onclick="switchTab(1)">🔴 1er Cercle — Cohérence Interne</button>
+  <button class="tab" data-t="2" onclick="switchTab(2)">🔵 2ème Cercle — Intention de l'auteur</button>
+  <button class="tab" data-t="3" onclick="switchTab(3)">🟢 3ème Cercle — Cohérence Méta</button>
+</div>
+
+<!-- ════════════ PANEL 1 ════════════ -->
+<div class="panel active" id="p1" style="max-width:1100px;width:100%">
+  <div class="scroll-banner" style="background:#f5ede0;border-color:rgba(194,65,12,.3)">
+    <div class="scroll-title" style="color:var(--c1)">1<sup>er</sup> Cercle : Cohérence Interne</div>
+    <div class="scroll-sub">Observer et juger l'œuvre <b>depuis l'intérieur de son propre monde fictif.</b><br>Les règles, événements et personnages doivent être cohérents <b>entre eux.</b></div>
+    <div class="scroll-question"><span class="q-icon">🔍</span><span>Est-ce que ça respecte les règles établies par ce monde, ses limites et sa logique ?</span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-c1">
+      <div class="box-title">⚔️ Règles du monde</div>
+      <ul>
+        <li><span class="dot dot-c1"></span><div><strong>Arts martiaux et ki</strong>Les lois du ki — comment il fonctionne, ses limites, ses conditions d'utilisation.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Dragon Balls et leurs limites</strong>Ce qu'elles peuvent et ne peuvent pas exaucer, le temps de rechargement.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Techniques et transformations</strong>Chaque technique a des coûts, des prérequis, des conditions d'activation.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Morts, résurrections, conséquences</strong>La mort a un prix dans cet univers — les exceptions doivent être justifiées.</div></li>
+      </ul>
+    </div>
+    <div class="box box-c1">
+      <div class="box-title">💪 Pouvoirs</div>
+      <ul>
+        <li><span class="dot dot-c1"></span><div><strong>Niveaux de puissance (écarts, progression)</strong>Les sauts de puissance doivent être cohérents avec ce qui précède.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Limites physiques et mentales</strong>Un personnage ne peut dépasser ses limites sans raison narrative.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Conditions d'utilisation</strong>Kaioken, Genki Dama — chaque technique a ses contraintes propres.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Faiblesses et vulnérabilités</strong>Tout être puissant a des points faibles établis dans la diégèse.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-c1">
+      <div class="box-title">📅 Chronologie</div>
+      <ul>
+        <li><span class="dot dot-c1"></span><div><strong>Événements dans l'ordre</strong>La causalité doit être respectée — A provoque B, pas l'inverse.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Durée, voyages, délais réalistes</strong>Le temps de se rendre d'un point à un autre doit être cohérent.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Causes et conséquences</strong>Chaque action a des répercussions observables dans l'histoire.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Continuité sans contradiction</strong>Ce qui est établi au tome 1 ne doit pas être contredit au tome 20.</div></li>
+      </ul>
+    </div>
+    <div class="box box-c1">
+      <div class="box-title">🧍 Personnages</div>
+      <ul>
+        <li><span class="dot dot-c1"></span><div><strong>Objectifs et motivations</strong>Chaque personnage agit selon ses buts établis — pas au hasard.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Évolution et apprentissages</strong>La progression doit être justifiée par des événements vécus.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Relations et liens</strong>Les dynamiques entre personnages suivent une logique narrative.</div></li>
+        <li><span class="dot dot-c1"></span><div><strong>Comportements cohérents</strong>Un personnage ne change pas de nature sans raison narrativement justifiée.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="check-item" style="color:var(--c1)"><div class="ck" style="background:var(--c1)">✓</div>RÈGLES</div>
+    <div class="check-item" style="color:var(--c1)"><div class="ck" style="background:var(--c1)">✓</div>LOGIQUE</div>
+    <div class="check-item" style="color:var(--c1)"><div class="ck" style="background:var(--c1)">✓</div>CONTINUITÉ</div>
+    <div class="check-item" style="color:var(--c1)"><div class="ck" style="background:var(--c1)">✓</div>CAUSE → EFFET</div>
+    <div class="check-item" style="color:var(--c1)"><div class="ck" style="background:var(--c1)">✓</div>CHRONOLOGIE</div>
+    <div class="check-item" style="color:var(--c1)"><div class="ck" style="background:var(--c1)">✓</div>COHÉRENCE DES POUVOIRS</div>
+  </div>
+
+  <div class="foot-note">
+    Ici, on ne parle que du <b>monde lui-même</b> : ses règles internes, sa logique, sa cohérence.<br>
+    Si quelque chose le contredit sans justification dans l'histoire, c'est une incohérence.<br>
+    <span style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--text3)">« Tout doit tenir debout à l'intérieur de ce monde. »</span>
+  </div>
+</div>
+
+<!-- ════════════ PANEL 2 ════════════ -->
+<div class="panel" id="p2" style="max-width:1100px;width:100%">
+  <div class="scroll-banner" style="background:#eff6ff;border-color:rgba(29,78,216,.28)">
+    <div class="scroll-title" style="color:var(--c2)">2<sup>ème</sup> Cercle : Intention de l'auteur</div>
+    <div class="scroll-sub">Comprendre <b>pourquoi l'auteur a fait certains choix</b> plutôt que d'autres.<br>Ici, on cherche le <b style="color:#1d4ed8">sens</b>, les <b style="color:#d97706">objectifs</b>, les <b style="color:#16a34a">thèmes</b>, les <b style="color:#be185d">émotions</b>, les <b style="color:#7c3aed">messages</b> voulus.</div>
+    <div class="scroll-question"><span class="q-icon">🧠</span><span>Qu'est-ce que je veux raconter ? Quelle émotion ? Quel message ?</span></div>
+  </div>
+
+  <!-- Gear / intentions wheel -->
+  <div class="gear-center" style="border-color:rgba(29,78,216,.15)">
+    <div style="text-align:center;font-family:'Bangers',cursive;font-size:15px;letter-spacing:2px;color:var(--c2);margin-bottom:14px">THÈMES &amp; INTENTIONS — Ce que l'auteur veut transmettre</div>
+    <div class="gear-grid">
+      <div class="gear-item" style="border-color:#dc2626;color:#dc2626;background:#fef2f2">
+        Émotion<br><span class="gear-sub">suspense</span>
+      </div>
+      <div class="gear-item" style="border-color:#d97706;color:#d97706;background:#fffbeb">
+        Humour<br><span class="gear-sub">légèreté</span>
+      </div>
+      <div class="gear-item gear-center-item" style="border-color:var(--c2);color:var(--c2);background:#eff6ff;font-size:13px">
+        THÈMES<br>&amp; INTENTIONS<br><span class="gear-sub" style="font-size:9px">le cœur du récit</span>
+      </div>
+      <div class="gear-item" style="border-color:#7c3aed;color:#7c3aed;background:#f5f3ff">
+        Message<br><span class="gear-sub">symbolique</span>
+      </div>
+      <div class="gear-item" style="border-color:#be185d;color:#be185d;background:#fdf2f8">
+        Liens &amp;<br>émotions<br><span class="gear-sub">relation.</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+      <div class="gear-item" style="width:100%;height:auto;border-radius:8px;padding:10px 14px;border-color:#16a34a;color:#16a34a;background:#f0fdf4;flex-direction:row;gap:10px;align-items:center">
+        <span style="font-size:18px">🌱</span>
+        <div><div style="font-size:13px">Développement des personnages</div><div class="gear-sub" style="color:var(--text3)">grandir à travers l'adversité</div></div>
+      </div>
+      <div class="gear-item" style="width:100%;height:auto;border-radius:8px;padding:10px 14px;border-color:#0369a1;color:#0369a1;background:#f0f9ff;flex-direction:row;gap:10px;align-items:center">
+        <span style="font-size:18px">🏆</span>
+        <div><div style="font-size:13px">Espoir &amp; optimisme</div><div class="gear-sub" style="color:var(--text3)">ne jamais abandonner</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="box box-c2">
+      <div class="box-title">🎯 Objectifs de l'auteur</div>
+      <ul>
+        <li><span class="dot dot-c2"></span><div>Divertir et toucher</div></li>
+        <li><span class="dot dot-c2"></span><div>Inspirer et faire réfléchir</div></li>
+        <li><span class="dot dot-c2"></span><div>Transmettre des valeurs</div></li>
+        <li><span class="dot dot-c2"></span><div>Créer un univers mémorable</div></li>
+      </ul>
+    </div>
+    <div class="box box-c2">
+      <div class="box-title">🔧 Ses outils narratifs</div>
+      <ul>
+        <li><span class="dot dot-c2"></span><div>Mise en scène et rythme</div></li>
+        <li><span class="dot dot-c2"></span><div>Contraste et répétitions</div></li>
+        <li><span class="dot dot-c2"></span><div>Révélations et twists</div></li>
+        <li><span class="dot dot-c2"></span><div>Symboles et archétypes</div></li>
+      </ul>
+    </div>
+    <div class="box box-c2">
+      <div class="box-title">❓ Questions clés</div>
+      <ul>
+        <li><span class="dot dot-c2"></span><div>Pourquoi ce personnage existe-t-il ?</div></li>
+        <li><span class="dot dot-c2"></span><div>Pourquoi cette scène maintenant ?</div></li>
+        <li><span class="dot dot-c2"></span><div>Quelle émotion l'auteur veut-il provoquer ?</div></li>
+        <li><span class="dot dot-c2"></span><div>Pourquoi ce choix plutôt qu'un autre ?</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote-bar" style="border-color:var(--c2)">
+    L'auteur ne peut pas tout montrer. Il choisit… et renonce à d'autres idées.<br>
+    Ce qu'il montre = son intention. Ce qu'il écarte = aussi révélateur de son cadre et de ses priorités.
+    <strong style="color:var(--c2)">CHOIX &amp; RENONCEMENTS — la main invisible de l'auteur</strong>
+  </div>
+
+  <div class="foot-note">
+    Ici, on <b>sort du monde de l'histoire</b> pour entrer dans la tête de son créateur.<br>
+    On ne juge plus seulement si c'est cohérent… On comprend <span class="hl-c2">POURQUOI</span> c'est comme ça.<br>
+    On cherche le <span class="hl-c2">POURQUOI</span> derrière le <b>COMMENT</b>.
+  </div>
+</div>
+
+<!-- ════════════ PANEL 3 ════════════ -->
+<div class="panel" id="p3" style="max-width:1100px;width:100%">
+  <div class="scroll-banner" style="background:#f0fdf4;border-color:rgba(21,128,61,.28)">
+    <div class="scroll-title" style="color:var(--c3)">3<sup>ème</sup> Cercle : Cohérence Méta</div>
+    <div class="scroll-sub">Le contexte global qui entoure l'œuvre :<br><b>l'univers Dragon Ball, sa culture, son époque, ses codes, ses influences et son public.</b></div>
+    <div class="scroll-question"><span class="q-icon">🌍</span><span>Le 3ème cercle donne la vue d'ensemble. Il relie l'œuvre à son monde et à tout ce qui la dépasse.</span></div>
+  </div>
+
+  <div class="c3-intro">
+    <strong>Le contexte réel de production</strong> qui permet à l'œuvre d'exister, d'être diffusée et de vivre dans le monde réel.<br>
+    Un travail collectif pour donner vie à l'œuvre — bien au-delà de la page de manga.
+  </div>
+
+  <div class="grid2">
+    <div class="box box-c3">
+      <div class="box-title">👥 Les créateurs &amp; décideurs</div>
+      <ul>
+        <li><span class="dot dot-c3"></span><div><strong>Akira Toriyama</strong>L'auteur — improvise chapitre par chapitre depuis 1984.</div></li>
+        <li><span class="dot dot-c3"></span><div><strong>Kazuhiko Torishima</strong>Rédacteur en chef de Weekly Shōnen Jump, auteur-clé de Dragon Ball. Il a accompagné et orienté de nombreuses décisions éditoriales.</div></li>
+        <li><span class="dot dot-c3"></span><div><strong>Éditeurs, assistants, correcteurs</strong>Un travail collectif pour donner vie à l'œuvre.</div></li>
+      </ul>
+    </div>
+    <div class="box box-c3">
+      <div class="box-title">🎬 L'industrie de l'animation</div>
+      <ul>
+        <li><span class="dot dot-c3"></span><div><strong>Studios d'animation (Toei Animation)</strong>Adaptent le manga en anime pour la télévision et le cinéma.</div></li>
+        <li><span class="dot dot-c3"></span><div><strong>Animateurs, réalisateurs, charadesigners, storyboarders</strong></div></li>
+        <li><span class="dot dot-c3"></span><div><strong>Doubleurs et musiciens</strong>Qui donnent vie à l'anime. DB · DBZ · GT · Super · Daima.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="box box-c3">
+      <div class="box-title">🧸 Produits dérivés</div>
+      <ul>
+        <li><span class="dot dot-c3"></span><div>Figurines, peluches, vêtements, accessoires, objets collectors</div></li>
+        <li><span class="dot dot-c3"></span><div>Une immense gamme pour tous les âges et tous les marchés</div></li>
+      </ul>
+    </div>
+    <div class="box box-c3">
+      <div class="box-title">🎮 Jeux vidéo</div>
+      <ul>
+        <li><span class="dot dot-c3"></span><div>Des dizaines de jeux sur toutes les générations</div></li>
+        <li><span class="dot dot-c3"></span><div>Budokai Tenkaichi · Kakarot · Xenoverse · FighterZ · Sparking Zero</div></li>
+      </ul>
+    </div>
+    <div class="box box-c3">
+      <div class="box-title">🃏 Cartes &amp; jeux de collection</div>
+      <ul>
+        <li><span class="dot dot-c3"></span><div>DBZ Card Game, Fusion World</div></li>
+        <li><span class="dot dot-c3"></span><div>Tournois, collections, communauté mondiale</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="box box-c3">
+      <div class="box-title">📡 Diffusion &amp; distribution</div>
+      <ul>
+        <li><span class="dot dot-c3"></span><div><strong>Plateformes streaming</strong>Netflix, Crunchyroll, ADN, Toonami</div></li>
+        <li><span class="dot dot-c3"></span><div><strong>Marketing &amp; communication</strong>Campagnes publicitaires, réseaux sociaux, partenariats (Nike, Uniqlo…)</div></li>
+        <li><span class="dot dot-c3"></span><div><strong>Événements, conventions, expositions</strong>Une œuvre devenue marque mondiale.</div></li>
+      </ul>
+    </div>
+    <div class="box box-c3">
+      <div class="box-title">🌐 Impact culturel &amp; héritage</div>
+      <ul>
+        <li><span class="dot dot-c3"></span><div><strong>Une influence mondiale</strong>Sur des générations de fans et d'artistes.</div></li>
+        <li><span class="dot dot-c3"></span><div><strong>Un héritage culturel pop, intemporel</strong></div></li>
+        <li><span class="dot dot-c3"></span><div><strong>Dragon Ball, un phénomène planétaire</strong>De nombreuses séries, films et spéciaux à travers les décennies.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot-note">
+    Le 3ème cercle donne la <b>vue d'ensemble.</b><br>
+    Il relie l'œuvre à son monde et à <span class="hl-c3">tout ce qui la dépasse</span>.<br>
+    <span style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--text3)">Une œuvre est le résultat d'un écosystème complet · Création · Production · Diffusion · Commercialisation</span>
+  </div>
+</div>
+
+<script>
+function switchTab(n){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',+t.dataset.t===n));
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i+1===n));
+}
+</script>
+</body>
+</html>
