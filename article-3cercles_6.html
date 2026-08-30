@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les 3 Niveaux de Lecture — Dragonballologie</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Share+Tech+Mono&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c1:#c2410c;--c2:#1d4ed8;--c3:#15803d;
+  --gold:#b45309;--goldb:#d97706;
+  --bg:#faf7f2;--parchment:#f5ede0;
+  --ink:#1c1917;--ink2:#44403c;--ink3:#78716c;
+  --rule:rgba(0,0,0,.1);--max:800px;
+}
+body{background:var(--bg);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.78}
+.topnav{background:var(--ink);padding:12px 24px;display:flex;align-items:center;gap:16px}
+.logo{font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;text-decoration:none}
+.logo em{color:#f97316;font-style:normal}
+.nav-back{font-family:'Share Tech Mono',monospace;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;margin-left:auto}
+.nav-back:hover{color:rgba(255,255,255,.7)}
+.banner{width:100%;max-height:560px;object-fit:cover;object-position:center 30%;display:block}
+.wrap{max-width:var(--max);margin:0 auto;padding:52px 24px 96px}
+.meta{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--ink3);text-transform:uppercase;display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.meta .cat{color:var(--goldb);font-weight:700}
+h1{font-family:'Oswald',sans-serif;font-size:clamp(30px,5vw,50px);font-weight:700;letter-spacing:1px;line-height:1.12;color:var(--ink);margin-bottom:28px}
+.lead{font-size:20px;line-height:1.68;color:var(--ink2);font-style:italic;border-left:4px solid var(--goldb);padding-left:18px;margin-bottom:40px}
+h2{font-family:'Oswald',sans-serif;font-size:clamp(22px,3.5vw,32px);font-weight:700;letter-spacing:.5px;margin:56px 0 18px;padding-bottom:10px;border-bottom:2px solid}
+h2.c1{color:var(--c1);border-color:rgba(194,65,12,.25)}
+h2.c2{color:var(--c2);border-color:rgba(29,78,216,.2)}
+h2.c3{color:var(--c3);border-color:rgba(21,128,61,.2)}
+h2.dark{color:var(--ink);border-color:var(--rule)}
+h3{font-family:'Oswald',sans-serif;font-size:clamp(19px,2.8vw,25px);font-weight:600;margin:38px 0 14px;color:var(--ink)}
+p{margin-bottom:20px;color:var(--ink2)}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:600}
+em{font-style:italic}
+
+/* Images */
+.img-full{width:100%;border-radius:10px;display:block;margin:34px 0;box-shadow:0 4px 28px rgba(0,0,0,.1)}
+.img-sep{width:100%;max-width:700px;display:block;margin:52px auto;border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,.14)}
+.img-caption{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:1px;text-align:center;text-transform:uppercase;margin-top:-24px;margin-bottom:34px}
+
+/* Manga grid */
+.manga-grid{display:grid;gap:10px;margin:24px 0}
+.manga-grid.cols2{grid-template-columns:1fr 1fr}
+.manga-grid.cols3{grid-template-columns:1fr 1fr 1fr}
+.manga-grid img{width:100%;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,.15);display:block}
+@media(max-width:580px){.manga-grid.cols2,.manga-grid.cols3{grid-template-columns:1fr}}
+
+/* Pillar cards */
+.pillars{display:flex;flex-direction:column;gap:10px;margin:20px 0 28px}
+.pillar{background:var(--parchment);border-radius:8px;padding:14px 18px;border-left:4px solid}
+.pillar.c1{border-color:var(--c1)}.pillar.c2{border-color:var(--c2)}.pillar.c3{border-color:var(--c3)}
+.pillar strong{display:block;margin-bottom:3px;font-size:15.5px;color:var(--ink)}
+.pillar p{margin:0;font-size:15px;color:var(--ink2)}
+
+/* List */
+ul.arrow{list-style:none;padding:0;margin:0 0 20px}
+ul.arrow li{padding:6px 0 6px 24px;position:relative;color:var(--ink2);font-size:17px}
+ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);font-weight:700}
+
+/* Hierarchy */
+.hierarchy{background:var(--parchment);border:1.5px solid var(--rule);border-radius:10px;padding:24px;margin:28px 0 36px}
+.h-row{display:flex;gap:18px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--rule)}
+.h-row:last-child{border:none;padding-bottom:0}
+.h-num{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;line-height:1;flex-shrink:0;width:38px}
+.h-num.c1{color:var(--c1)}.h-num.c2{color:var(--c2)}.h-num.c3{color:var(--c3)}
+.h-body strong{display:block;font-size:16px;margin-bottom:4px}
+.h-body p{margin:0;font-size:15px;color:var(--ink2)}
+
+/* Examples */
+.example{background:var(--parchment);border:1.5px solid var(--rule);border-radius:12px;padding:30px 30px 26px;margin:40px 0}
+.ex-num{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--ink3);text-transform:uppercase;margin-bottom:4px}
+.ex-title{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:22px;padding-bottom:14px;border-bottom:2px solid var(--rule)}
+.level{margin-bottom:22px;padding-left:16px;border-left:3px solid}
+.level.c1{border-color:var(--c1)}.level.c2{border-color:var(--c2)}.level.c3{border-color:rgba(21,128,61,.3)}
+.level-tag{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.level-tag.c1{color:var(--c1)}.level-tag.c2{color:var(--c2)}.level-tag.c3{color:var(--ink3)}
+.concl{background:var(--ink);color:rgba(255,255,255,.82);border-radius:9px;padding:18px 22px;margin-top:22px;font-size:15.5px;line-height:1.65}
+.concl strong{color:#fff}
+.verdict{display:inline-block;font-family:'Oswald',sans-serif;font-size:19px;font-weight:700;color:var(--c3);background:rgba(21,128,61,.1);padding:6px 18px;border-radius:6px;margin-top:10px}
+.foot{margin-top:72px;padding-top:24px;border-top:2px solid var(--rule);font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--ink3);text-align:center;text-transform:uppercase}
+@media(max-width:600px){.wrap{padding:32px 16px 64px}.example{padding:20px 16px 18px}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="logo" href="index.html"><em>Dragon</em>ballologie</a>
+  <a class="nav-back" href="index.html">← Accueil</a>
+</nav>
+
+<img class="banner" src="images/porte_esprit_temps.jpg" alt="Salle de l'Esprit et du Temps"/>
+
+<main class="wrap">
+
+  <div class="meta">
+    <span class="cat">Dragonballologie</span>
+    <span>Méthodologie</span>
+    <span>Analyse narrative</span>
+  </div>
+
+  <h1>Analyse des récits avec les trois niveaux de lecture</h1>
+
+  <p class="lead">Nous allons explorer les trois niveaux de lecture qui permettent d'appréhender une œuvre de manière rigoureuse et complète.</p>
+
+  <p>Plus un récit est bon et bien écrit, plus il nous retient exclusivement au premier niveau de lecture, car ce niveau se suffit à lui-même. Lorsque l'univers fictif est vraisemblable, logique et immersif, le lecteur n'a aucune raison de sortir de ce cadre : les événements s'enchaînent naturellement, les personnages agissent en accord avec leurs motivations, et tout semble fluide et crédible.</p>
+  <p>C'est la lecture la plus épanouissante, car elle ne demande aucun effort supplémentaire : nous sommes pleinement plongés dans l'univers, oubliant presque qu'il s'agit d'une fiction.</p>
+
+  <img class="img-full" src="images/cercles_bain.jpg" alt="Les 3 cercles de lecture"/>
+  <p class="img-caption">Les 3 cercles de lecture · Cohérence interne · Intention de l'auteur · Cohérence méta</p>
+
+  <!-- ══ 1er CERCLE ══ -->
+  <h2 class="c1">1<sup>er</sup> niveau : La cohérence interne</h2>
+
+  <img class="img-full" src="images/cercle1_carte_monde.jpg" alt="1er cercle — Cohérence interne"/>
+
+  <p>Le premier niveau de lecture est toujours celui avec lequel on commence. Il repose sur la logique interne de l'univers et des personnages. Le lecteur accepte de suspendre son incrédulité tant que l'histoire respecte ses propres règles.</p>
+  <p>Le cercle central représente le cœur du récit, l'univers fictif. Il repose sur trois piliers fondamentaux :</p>
+
+  <div class="pillars">
+    <div class="pillar c1"><strong>Logique des personnages</strong><p>Les actions et décisions des protagonistes doivent être cohérentes avec leur caractère, leurs motivations et les événements qui les entourent.</p></div>
+    <div class="pillar c1"><strong>Règles et lois de l'univers fictif</strong><p>L'univers doit fonctionner selon ses propres lois internes. Par exemple, l'utilisation des Dragon Balls suit des règles définies — on ne peut pas ressusciter une personne morte de vieillesse.</p></div>
+    <div class="pillar c1"><strong>Suspension consentie d'incrédulité</strong><p>Le lecteur accepte volontairement des éléments fantastiques ou irréels tant que le récit reste logique et fidèle à lui-même.</p></div>
+  </div>
+
+  
+
+  <!-- ══ 2ème CERCLE ══ -->
+  <h2 class="c2">2<sup>ème</sup> niveau : L'intention de l'auteur</h2>
+
+  <img class="img-full" src="images/cercle2_engrenages.jpg" alt="2ème cercle — Intention de l'auteur"/>
+
+  <p>La deuxième lecture intervient lorsque la première montre des failles. Lorsque certains éléments deviennent incohérents — une décision de personnage qui semble artificielle, des événements forcés —, le lecteur est amené à chercher une explication en dehors de la logique interne du récit.</p>
+  <p>Ce passage signifie que le lecteur a temporairement quitté l'univers fictif pour se questionner sur les choix de l'auteur.</p>
+
+  <ul class="arrow">
+    <li>Pourquoi ce personnage agit-il ainsi ? Est-ce pour servir un rebondissement ?</li>
+    <li>Pourquoi cet événement semble-t-il précipité ? Est-ce un choix narratif destiné à accélérer l'intrigue ?</li>
+  </ul>
+
+  <div class="pillars">
+    <div class="pillar c2"><strong>Intentions de l'auteur</strong><p>Comprendre pourquoi l'auteur fait certains choix narratifs — développement de personnages, changements dans l'intrigue, thèmes explorés.</p></div>
+    <div class="pillar c2"><strong>Fils narratifs visibles ou invisibles</strong><p>Les connexions et trames, explicites ou implicites, qui lient des éléments de l'histoire entre eux.</p></div>
+    <div class="pillar c2"><strong>Techniques narratives</strong><p>Les outils utilisés pour raconter l'histoire : flashbacks, ellipses, répétitions thématiques.</p></div>
+    <div class="pillar c2"><strong>Construction d'univers</strong><p>Comment l'auteur enrichit le monde fictif à travers des ajouts progressifs.</p></div>
+    <div class="pillar c2"><strong>Effets sur le lecteur</strong><p>Les émotions ou réflexions que l'auteur cherche à susciter.</p></div>
+  </div>
+
+  
+
+  <!-- ══ 3ème CERCLE ══ -->
+  <h2 class="c3">3<sup>ème</sup> niveau : La cohérence méta</h2>
+
+  <img class="img-full" src="images/cercle3_meta.jpg" alt="3ème cercle — Cohérence méta"/>
+
+  <p>Le troisième niveau intervient lorsque les deux premiers échouent à justifier certaines invraisemblances. Il ne s'agit plus d'une démarche artistique ou narrative, mais d'une analyse mercantile et extra-narrative.</p>
+
+  <ul class="arrow">
+    <li>Freezer et Broly deviennent « gentils » par pur fan service, sans véritable justification narrative.</li>
+    <li>L'introduction de nouvelles transformations répond davantage à des attentes marketing qu'à une cohérence narrative.</li>
+  </ul>
+
+  <div class="pillars">
+    <div class="pillar c3"><strong>Contexte de production</strong><p>Les conditions économiques, éditoriales ou sociétales ayant influencé l'œuvre.</p></div>
+    <div class="pillar c3"><strong>Succès commercial et produits dérivés</strong><p>L'impact de l'œuvre sur son époque et sa commercialisation.</p></div>
+    <div class="pillar c3"><strong>Réception et impact mondial</strong><p>Comment l'œuvre a été perçue par des publics variés à travers le temps.</p></div>
+    <div class="pillar c3"><strong>Interprétation collective</strong><p>Les théories, débats et significations développés par les fans ou les critiques.</p></div>
+    <div class="pillar c3"><strong>Dimension intertextuelle</strong><p>Les liens avec d'autres œuvres, genres ou cultures.</p></div>
+  </div>
+
+  <!-- ══ HIÉRARCHIE ══ -->
+  <h2 class="dark">Une progression naturelle, mais hiérarchisée</h2>
+
+  <div class="hierarchy">
+    <div class="h-row"><div class="h-num c1">1</div><div class="h-body"><strong>La cohérence interne — le plus important</strong><p>Un récit de qualité nous maintient dans ce cadre, car il fonctionne parfaitement par lui-même.</p></div></div>
+    <div class="h-row"><div class="h-num c2">2</div><div class="h-body"><strong>L'intention de l'auteur — une béquille</strong><p>Il comble les lacunes lorsque des incohérences émergent, mais reflète généralement un défaut dans la construction narrative.</p></div></div>
+    <div class="h-row"><div class="h-num c3">3</div><div class="h-body"><strong>La cohérence méta — hors de l'art</strong><p>Il appartient à une logique commerciale ou contextuelle, souvent imposée de l'extérieur.</p></div></div>
+  </div>
+
+  <p>Nous allons maintenant explorer chaque niveau à travers des exemples et des analyses détaillées.</p>
+
+  <img class="img-sep" src="images/porte_kame_house.jpg" alt="Maison Kamé — invitation à explorer les exemples"/>
+
+  <!-- ══ EXEMPLES ══ -->
+  <h2 class="dark">Exemples appliqués : lire une scène avec les trois niveaux</h2>
+  <p>Voici plusieurs exemples de scènes où l'on doit appliquer différents niveaux de lecture afin de comprendre leur vrai sens narratif.</p>
+
+  <!-- ── EXEMPLE 1 ── -->
+  <div class="example">
+    <div class="ex-num">Exemple 01</div>
+    <div class="ex-title">Krillin détecte la puissance de Cell</div>
+
+    <div class="manga-grid cols2">
+      <img src="images/manga/ex1_krillin_cell_combat.jpg" alt="Krillin et Cell — combat"/>
+      <img src="images/manga/ex1_trunks_krillin_cell.jpg" alt="Trunks et Krillin analysent Cell"/>
+    </div>
+
+    <div class="level c1">
+      <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
+      <p>Si on reste dans la logique interne du récit, on pourrait supposer que Krillin a une capacité de <em>power sense</em> supérieure à d'autres personnages.</p>
+      <p>Cependant, en relisant les tomes précédents, rien ne confirme que Krillin possède une aptitude exceptionnelle dans ce domaine. Cette interprétation interne devient donc bancale.</p>
+      <p>Le lecteur commence à percevoir une incohérence : pourquoi Krillin, et pas Trunks qui est pourtant bien plus fort ?</p>
+    </div>
+
+    <div class="level c2">
+      <div class="level-tag c2">🔵 2ème Cercle — Intention de l'auteur</div>
+      <p>En appliquant le second cercle, cette scène devient compréhensible. Toriyama attribue ce rôle à Krillin pour lui donner une utilité narrative.</p>
+      <p>Étant incapable de participer efficacement au combat, Krillin devient le « faire-valoir » et sert de voix du narrateur. Il verbalise ce que le lecteur doit comprendre : Cell cache une puissance immense et dangereuse.</p>
+    </div>
+
+    <div class="level c3">
+      <div class="level-tag c3">🟢 3ème Cercle — Cohérence méta</div>
+      <p>Ici, le troisième cercle est inutile. Le deuxième suffit à expliquer cette scène.</p>
+    </div>
+
+    <div class="concl"><strong>Conclusion :</strong> Le 1er niveau échoue. Le 2ème supplée en révélant le rôle narratif de Krillin. Le 3ème est superflu — ce qui confirme qu'il n'intervient que quand les deux premiers ne suffisent pas.</div>
+  </div>
+
+  <img class="img-sep" src="images/porte_kame_house.jpg" alt="Maison Kamé"/>
+
+  <!-- ── EXEMPLE 2 ── -->
+  <div class="example">
+    <div class="ex-num">Exemple 02</div>
+    <div class="ex-title">Vegetto se fait absorber par Buuhan</div>
+
+    <div class="manga-grid cols2">
+      <img src="images/manga/ex2_goku_vegeta_defusion.jpg" alt="Goku et Vegeta — défusion"/>
+      <img src="images/manga/ex2_vegetto_countdown.jpg" alt="Vegetto — compte à rebours"/>
+    </div>
+
+    <div class="level c1">
+      <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
+      <p>Vegetto explique qu'il ne veut pas tuer Buuhan immédiatement pour récupérer les personnages absorbés. Mais ce plan est incohérent : il pourrait tuer Buuhan, se téléporter sur Namek et utiliser les Dragon Balls pour tout résoudre.</p>
+      <p>La barrière protectrice qu'il utilise est un pari risqué — il ne l'a jamais utilisée et n'a aucune certitude qu'elle fonctionnera.</p>
+    </div>
+
+    <div class="manga-grid cols3">
+      <img src="images/manga/ex2_buuhan_absorption.jpg" alt="Buuhan absorption"/>
+      <img src="images/manga/ex2_buuhan_protection.jpg" alt="Protection de Vegetto"/>
+      <img src="images/manga/ex2_vegetto_interieur_buu.jpg" alt="Vegetto à l'intérieur de Buu"/>
+    </div>
+
+    <div class="level c2">
+      <div class="level-tag c2">🔵 2ème Cercle — Intention de l'auteur</div>
+      <p><strong>Intention principale :</strong> Toriyama veut se débarrasser de Vegetto, trop puissant pour maintenir le suspense. Garder Vegetto actif annulerait la tension de l'arc.</p>
+      <p><strong>Construction narrative :</strong> L'auteur revient à des personnages moins invincibles — Goku et Vegeta — pour ramener de l'équilibre dramatique.</p>
+      <p><strong>Effet :</strong> La confrontation finale avec Majin Buu sous sa forme pure devient plus emblématique.</p>
+    </div>
+
+    <div class="manga-grid cols2">
+      <img src="images/manga/ex2_vegetto_cherche.jpg" alt="Vegetto cherche les autres"/>
+      <img src="images/manga/ex2_vegeta_goku_buu_interieur.jpg" alt="Goku et Vegeta à l'intérieur de Buu"/>
+    </div>
+
+    <div class="level c3">
+      <div class="level-tag c3">🟢 3ème Cercle — Cohérence méta (facultatif)</div>
+      <p>Ce niveau peut éclairer la décision sous un angle commercial, mais le 2ème cercle suffit.</p>
+    </div>
+
+    <div class="concl"><strong>Conclusion :</strong> Le plan de Vegetto semble artificiellement complexe parce que l'auteur crée cette situation pour réorienter l'histoire — pas pour des raisons internes à l'univers.</div>
+  </div>
+
+  <img class="img-sep" src="images/dr_brief_pod.jpg" alt="Dr Brief analyse le vaisseau spatial de Goku"/>
+
+  <!-- ── EXEMPLE 3 ── -->
+  <div class="example">
+    <div class="ex-num">Exemple 03</div>
+    <div class="ex-title">Goku choisit de ne pas ressusciter</div>
+
+    <div class="manga-grid cols2">
+      <img src="images/manga/ex3_shenron_impossible.jpg" alt="Shenron — impossible de ressusciter Goku"/>
+      <img src="images/manga/ex3_goku_bulma_ennemis.jpg" alt="Goku — Bulma et les ennemis"/>
+    </div>
+
+    <div class="level c1">
+      <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
+      <p>Le dialogue où Bulma affirme que Goku attire les ennemis sur Terre est pertinent à la relecture : Vegeta, Freezer, les cyborgs ont tous un lien avec Goku. De plus, Gohan est désormais plus fort que son père et peut assumer la protection de la Terre. La logique interne tient.</p>
+    </div>
+
+    <div class="manga-grid cols2">
+      <img src="images/manga/ex3_goku_decision.jpg" alt="Goku explique sa décision"/>
+      <img src="images/manga/ex3_shenron_final_equipe.jpg" alt="Shenron — équipe finale"/>
+    </div>
+
+    <div class="level c2">
+      <div class="level-tag c2">🔵 2ème Cercle — Intention de l'auteur</div>
+      <p>L'intention de Toriyama de passer le flambeau à Gohan est évidente — il avait préparé le terrain depuis l'introduction du personnage. La décision de Goku renforce ce développement tout en justifiant sa retraite narrative.</p>
+    </div>
+
+    <div class="concl"><span class="verdict">Verdict : 18/20</span></div>
+  </div>
+
+  <img class="img-sep" src="images/laboratoire_dr_gero.jpg" alt="Dr Gero — laboratoire"/>
+
+  <!-- ── EXEMPLE 4 ── -->
+  <div class="example">
+    <div class="ex-num">Exemple 04</div>
+    <div class="ex-title">Le retour de Freezer</div>
+
+    <div class="manga-grid cols2">
+      <img src="images/manga/ex4_cold_freezer_attente.jpg" alt="Cold et Freezer attendent"/>
+      <img src="images/manga/ex4_flash_espace.jpg" alt="Flash dans l'espace — vaisseau de Trunks"/>
+    </div>
+
+    <div class="level c1">
+      <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
+      <p>Freezer a subi des blessures fatales à plusieurs reprises — décapité, traversé par un disque, écrasé par une explosion planétaire. La justification que son corps fut réparé par la technologie semble insuffisante pour expliquer sa survie et son retour plus fort.</p>
+    </div>
+
+    <div class="manga-grid cols2">
+      <img src="images/manga/ex4_freezer_tranche.jpg" alt="Freezer tranché par Trunks"/>
+      <img src="images/manga/ex4_freezer_detruit.jpg" alt="Freezer détruit"/>
+    </div>
+
+    <div class="level c2">
+      <div class="level-tag c2">🔵 2ème Cercle — Intention de l'auteur</div>
+      <p>L'auteur utilise Freezer comme outil narratif :</p>
+      <ul class="arrow" style="margin-top:10px">
+        <li>Faire de l'ancien ennemi ultime un faire-valoir pour Trunks et établir sa supériorité instantanément.</li>
+        <li>Signaler l'escalade : si Freezer est balayé sans effort, la nouvelle menace sera encore plus redoutable.</li>
+        <li>Marquer le changement de dynamique — Freezer devient accessoire dans les enjeux actuels.</li>
+      </ul>
+    </div>
+
+    <div class="manga-grid cols2">
+      <img src="images/manga/ex4_freezer_cell_1er_cercle.jpg" alt="Freezer — 1er cercle incohérence"/>
+      <img src="images/manga/ex4_cell_ressuscite.jpg" alt="Cell ressuscite"/>
+    </div>
+
+    <div class="concl"><strong>Verdict :</strong> L'incohérence interne ne perturbe pas la trame car Freezer est rapidement éliminé. Son retour éphémère est un prétexte narratif assumé — illustrant parfaitement comment le 2ème cercle dépasse les limites du 1er.</div>
+  </div>
+
+  <img class="img-full" src="images/porte_esprit_temps.jpg" alt="Salle de l'Esprit et du Temps" style="margin-top:60px"/>
+
+  <footer class="foot">Dragonballologie · Analyse narrative · Debat-Z</footer>
+
+</main>
+</body>
+</html>
