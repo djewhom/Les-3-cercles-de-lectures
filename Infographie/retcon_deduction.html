@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Retcon est une Déduction</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#060612;font-family:'Rajdhani',sans-serif;color:#c8c8e8;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:24px 10px 32px;
+}
+h1{
+  font-size:clamp(16px,2.2vw,26px);font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;text-align:center;
+  background:linear-gradient(90deg,#ffd700 0%,#ff7a1a 50%,#ffd700 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:5px;
+}
+.sub{font-size:11px;letter-spacing:3px;color:#363658;font-family:'Share Tech Mono',monospace;text-align:center;margin-bottom:18px;text-transform:uppercase}
+.wrap{width:100%;max-width:1250px;background:rgba(8,8,22,.93);border:1px solid rgba(255,215,0,.1);border-radius:14px;padding:20px 12px 16px;overflow-x:auto;box-shadow:0 12px 60px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.04);margin-bottom:18px}
+svg{display:block;min-width:1000px}
+.figtitle{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:#7a7aa8;text-transform:uppercase;margin:0 0 12px 6px}
+.figtitle b{color:#ffd700;font-weight:400}
+
+/* tooltip */
+#tip{position:fixed;display:none;background:rgba(4,4,18,.97);border:1px solid rgba(255,215,0,.3);border-radius:8px;padding:10px 14px;font-size:12px;font-family:'Share Tech Mono',monospace;color:#c0c0dc;pointer-events:none;z-index:9999;max-width:280px;line-height:1.65;box-shadow:0 8px 30px rgba(0,0,0,.75)}
+.tt{font-size:10px;margin-bottom:3px;opacity:.5}
+.tn{font-size:13px;font-weight:600;margin-bottom:5px}
+.td{font-size:10.5px;color:#888;line-height:1.55}
+
+/* cascade cards */
+.cascade{max-width:1250px;width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}
+.ccard{
+  background:rgba(8,8,22,.93);border-radius:10px;padding:16px 14px;
+  border:1px solid rgba(255,215,0,.08);cursor:pointer;
+  transition:border-color .3s,box-shadow .3s;position:relative;overflow:hidden;
+}
+.ccard:hover{border-color:rgba(255,215,0,.3);box-shadow:0 0 20px rgba(255,215,0,.08)}
+.ccard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.cc1::before{background:#38bdf8}.cc2::before{background:#f97316}.cc3::before{background:#c084fc}.cc4::before{background:#4ade80}.cc5::before{background:#fb7185}
+.ccard-head{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;opacity:.45;margin-bottom:6px}
+.ccard-name{font-size:15px;font-weight:700;letter-spacing:.5px;margin-bottom:8px}
+.ccard-from,.ccard-to{font-family:'Share Tech Mono',monospace;font-size:10px;line-height:1.5;margin-bottom:4px}
+.ccard-from{color:#8a8ab0}
+.ccard-to{color:#ffe9a0}
+.ccard-arrow{text-align:center;color:rgba(255,215,0,.4);font-size:9px;font-family:'Share Tech Mono',monospace;margin:6px 0}
+.ccard-absurd{
+  margin-top:8px;padding:8px 10px;border-radius:6px;
+  background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);
+  font-family:'Share Tech Mono',monospace;font-size:9.5px;color:#ef9090;line-height:1.5;
+  max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s,opacity .3s;opacity:0;padding:0 10px;
+}
+.ccard:hover .ccard-absurd,.ccard.active .ccard-absurd{max-height:200px;opacity:1;padding:8px 10px}
+.ccard-verdict{
+  margin-top:6px;font-family:'Share Tech Mono',monospace;font-size:9px;color:#4ade80;
+  text-transform:uppercase;letter-spacing:1px;
+  max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s;opacity:0;
+}
+.ccard:hover .ccard-verdict,.ccard.active .ccard-verdict{max-height:30px;opacity:1}
+
+.rule{margin-top:4px;max-width:1250px;width:100%;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.22);border-radius:9px;padding:12px 18px;font-family:'Share Tech Mono',monospace;font-size:11.5px;color:#e8c349;text-align:center;letter-spacing:.3px;line-height:1.8}
+
+@keyframes pls{0%,100%{opacity:1}50%{opacity:.5}}
+.pulseEl{animation:pls 2.6s ease-in-out infinite}
+@keyframes flowarr{to{stroke-dashoffset:-22}}
+.flowarr{stroke-dasharray:6 4;animation:flowarr .85s linear infinite}
+@keyframes tw{from{opacity:.04}to{opacity:.45}}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.flowarr,.pulseEl{animation:none}}
+</style>
+</head>
+<body>
+<div id="stars" style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden"></div>
+<div style="position:relative;z-index:1;width:100%;max-width:1250px;display:flex;flex-direction:column;align-items:center">
+  <h1>Le Retcon est une Déduction</h1>
+  <p class="sub">Analyse de texte · Raisonnement par l'absurde · Conditions de production</p>
+
+  <!-- ════════════════ FIGURE PRINCIPALE — L'ARBRE LOGIQUE ════════════════ -->
+  <div class="wrap">
+    <p class="figtitle">Fig. 4 — <b>L'arbre logique</b> : soit révélation planifiée, soit retcon — il n'y a pas de 3ème option</p>
+    <svg id="tree" viewBox="0 0 1250 720" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="mkG" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L9,3.5z" fill="#ffd700"/></marker>
+        <marker id="mkR" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L9,3.5z" fill="#ef4444"/></marker>
+        <marker id="mkGr" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L9,3.5z" fill="#4ade80"/></marker>
+        <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+
+      <!-- ══ LEVEL 0 — LE CONSTAT ══ -->
+      <rect x="375" y="18" width="500" height="52" rx="10" fill="rgba(255,215,0,.06)" stroke="#ffd700" stroke-width="1.5" stroke-opacity=".5"/>
+      <text x="625" y="40" fill="#ffd700" font-size="12" font-weight="700" text-anchor="middle" font-family="Rajdhani,sans-serif" letter-spacing="2">CONSTAT : UNE CONNEXION APPARAÎT ENTRE DEUX TOMES</text>
+      <text x="625" y="58" fill="rgba(255,215,0,.5)" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">Un élément du tome X est « expliqué » ou « approfondi » au tome Y, des années plus tard</text>
+
+      <!-- connecteur central -->
+      <line x1="625" y1="70" x2="625" y2="102" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+      <circle cx="625" cy="108" r="6" fill="rgba(4,4,18,.9)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+      <text x="625" y="111" fill="rgba(255,255,255,.5)" font-size="7" text-anchor="middle" font-family="Share Tech Mono,monospace">?</text>
+
+      <!-- ══ LEVEL 1 — LE FORK ══ -->
+      <!-- branche gauche : révélation -->
+      <line x1="625" y1="114" x2="310" y2="168" stroke="rgba(239,68,68,.3)" stroke-width="1.2"/>
+      <rect x="130" y="158" width="360" height="50" rx="10" fill="rgba(239,68,68,.05)" stroke="#ef4444" stroke-width="1.2" stroke-opacity=".5"/>
+      <text x="310" y="178" fill="#ef4444" font-size="13" font-weight="700" text-anchor="middle" font-family="Rajdhani,sans-serif" letter-spacing="1.5">HYPOTHÈSE A — RÉVÉLATION</text>
+      <text x="310" y="197" fill="rgba(239,68,68,.55)" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">« L'auteur l'avait prévu depuis le début »</text>
+
+      <!-- branche droite : retcon -->
+      <line x1="625" y1="114" x2="940" y2="168" stroke="rgba(74,222,128,.3)" stroke-width="1.2"/>
+      <rect x="760" y="158" width="360" height="50" rx="10" fill="rgba(74,222,128,.05)" stroke="#4ade80" stroke-width="1.2" stroke-opacity=".5"/>
+      <text x="940" y="178" fill="#4ade80" font-size="13" font-weight="700" text-anchor="middle" font-family="Rajdhani,sans-serif" letter-spacing="1.5">HYPOTHÈSE B — RETCON</text>
+      <text x="940" y="197" fill="rgba(74,222,128,.55)" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">« L'auteur l'a inventé plus tard et greffé »</text>
+
+      <!-- ══ LEVEL 2 — TEST DE L'HYPOTHÈSE A ══ -->
+      <line x1="310" y1="208" x2="310" y2="244" stroke="rgba(239,68,68,.2)" stroke-width="1"/>
+      <text x="310" y="240" fill="rgba(239,68,68,.35)" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace">TEST : QUE FAUDRAIT-IL ACCEPTER ?</text>
+
+      <rect x="68" y="252" width="484" height="166" rx="10" fill="rgba(239,68,68,.03)" stroke="rgba(239,68,68,.18)" stroke-width="1"/>
+      <text x="88" y="274" fill="rgba(239,68,68,.6)" font-size="10" font-weight="700" font-family="Rajdhani,sans-serif" letter-spacing="1">POUR QUE CE SOIT UNE RÉVÉLATION, IL FAUDRAIT QUE :</text>
+
+      <!-- conditions absurdes — lignes avec X -->
+      <g font-family="Share Tech Mono,monospace" font-size="9.5">
+        <text x="108" y="300" fill="#ef9090">✗</text><text x="124" y="300" fill="#a8a8d0">Toriyama ait planifié 14+ tomes alors qu'il visait 2</text>
+        <text x="108" y="322" fill="#ef9090">✗</text><text x="124" y="322" fill="#a8a8d0">Il ait conçu la tour Karine, le Palais de Dieu, le Tout-Puissant</text>
+        <text x="136" y="336" fill="#888">en dessinant un gag manga comique en 1984</text>
+        <text x="108" y="358" fill="#ef9090">✗</text><text x="124" y="358" fill="#a8a8d0">Il ait gardé ce plan secret pendant 4 ans de publication</text>
+        <text x="136" y="372" fill="#888">hebdomadaire, sans jamais le laisser transparaître</text>
+        <text x="108" y="394" fill="#ef9090">✗</text><text x="124" y="394" fill="#a8a8d0">Il ait fait tout cela dans un format qu'il improvisait à la semaine</text>
+      </g>
+
+      <!-- VERDICT ABSURDE -->
+      <line x1="310" y1="418" x2="310" y2="446" stroke="rgba(239,68,68,.2)" stroke-width="1"/>
+      <rect x="168" y="446" width="284" height="40" rx="8" fill="rgba(239,68,68,.08)" stroke="#ef4444" stroke-width="1.8" stroke-opacity=".6" filter="url(#glow)"/>
+      <text x="310" y="464" fill="#ef4444" font-size="14" font-weight="700" text-anchor="middle" font-family="Rajdhani,sans-serif" letter-spacing="1.5">ABSURDE</text>
+      <text x="310" y="479" fill="rgba(239,68,68,.5)" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace">Structurellement impossible</text>
+
+      <!-- croix animée sur l'hypothèse A -->
+      <g class="pulseEl" opacity=".6">
+        <line x1="160" y1="170" x2="460" y2="196" stroke="#ef4444" stroke-width="2.5" stroke-opacity=".3"/>
+        <line x1="160" y1="196" x2="460" y2="170" stroke="#ef4444" stroke-width="2.5" stroke-opacity=".3"/>
+      </g>
+
+      <!-- ══ LEVEL 2 — TEST DE L'HYPOTHÈSE B ══ -->
+      <line x1="940" y1="208" x2="940" y2="244" stroke="rgba(74,222,128,.2)" stroke-width="1"/>
+      <text x="940" y="240" fill="rgba(74,222,128,.35)" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace">TEST : QUE SAVONS-NOUS ?</text>
+
+      <rect x="698" y="252" width="484" height="166" rx="10" fill="rgba(74,222,128,.03)" stroke="rgba(74,222,128,.18)" stroke-width="1"/>
+      <text x="718" y="274" fill="rgba(74,222,128,.6)" font-size="10" font-weight="700" font-family="Rajdhani,sans-serif" letter-spacing="1">CONDITIONS DE PRODUCTION CONNUES :</text>
+
+      <g font-family="Share Tech Mono,monospace" font-size="9.5">
+        <text x="738" y="300" fill="#4ade80">✓</text><text x="754" y="300" fill="#a8a8d0">Dragon Ball commence comme une parodie courte du Saiyūki</text>
+        <text x="738" y="322" fill="#4ade80">✓</text><text x="754" y="322" fill="#a8a8d0">Toriyama ne comptait pas dépasser quelques tomes</text>
+        <text x="738" y="344" fill="#4ade80">✓</text><text x="754" y="344" fill="#a8a8d0">Torishima (éditeur) réoriente vers les arts martiaux</text>
+        <text x="738" y="366" fill="#4ade80">✓</text><text x="754" y="366" fill="#a8a8d0">Publication hebdomadaire, improvisation à la semaine</text>
+        <text x="738" y="388" fill="#4ade80">✓</text><text x="754" y="388" fill="#a8a8d0">Toriyama le confirme en interview (verrouillage)</text>
+      </g>
+
+      <!-- VERDICT RETCON -->
+      <line x1="940" y1="418" x2="940" y2="446" stroke="rgba(74,222,128,.2)" stroke-width="1"/>
+      <rect x="798" y="446" width="284" height="40" rx="8" fill="rgba(74,222,128,.08)" stroke="#4ade80" stroke-width="1.8" stroke-opacity=".6" filter="url(#glow)"/>
+      <text x="940" y="464" fill="#4ade80" font-size="14" font-weight="700" text-anchor="middle" font-family="Rajdhani,sans-serif" letter-spacing="1.5">RETCON — C.Q.F.D.</text>
+      <text x="940" y="479" fill="rgba(74,222,128,.5)" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace">Seule conclusion logiquement tenable</text>
+
+      <!-- ══ LEVEL 3 — LA MÉTHODE ══ -->
+      <line x1="310" y1="486" x2="530" y2="530" stroke="rgba(255,255,255,.08)" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="940" y1="486" x2="720" y2="530" stroke="rgba(255,255,255,.08)" stroke-width="1" stroke-dasharray="4,4"/>
+
+      <rect x="430" y="524" width="390" height="72" rx="10" fill="rgba(255,215,0,.04)" stroke="rgba(255,215,0,.25)" stroke-width="1"/>
+      <text x="625" y="547" fill="#ffd700" font-size="11.5" font-weight="700" text-anchor="middle" font-family="Rajdhani,sans-serif" letter-spacing="1.5">MÉTHODE</text>
+      <text x="625" y="565" fill="rgba(255,215,0,.6)" font-size="9.5" text-anchor="middle" font-family="Share Tech Mono,monospace">1. DÉDUCTION — les conditions de production suffisent</text>
+      <text x="625" y="581" fill="rgba(255,215,0,.6)" font-size="9.5" text-anchor="middle" font-family="Share Tech Mono,monospace">2. VÉRIFICATION — les interviews verrouillent, sans plus</text>
+
+      <!-- ══ BANDEAU EXEMPLE — LE NYOIBŌ ══ -->
+      <rect x="100" y="624" width="1050" height="78" rx="10" fill="rgba(249,115,22,.03)" stroke="rgba(249,115,22,.2)" stroke-width="1"/>
+      <text x="120" y="646" fill="#f97316" font-size="10" font-weight="700" font-family="Rajdhani,sans-serif" letter-spacing="1.5">EXEMPLE : LE NYOIBŌ</text>
+
+      <!-- tome 1 -->
+      <circle cx="188" cy="672" r="6" fill="rgba(4,4,18,.9)" stroke="#f97316" stroke-width="2"/>
+      <circle cx="188" cy="672" r="2" fill="#f97316"/>
+      <text x="188" y="695" fill="rgba(249,115,22,.5)" font-size="7.5" text-anchor="middle" font-family="Share Tech Mono,monospace">TOME 1</text>
+      <text x="188" y="658" fill="rgba(249,115,22,.4)" font-size="7" text-anchor="middle" font-family="Share Tech Mono,monospace">1984</text>
+
+      <rect x="218" y="660" width="190" height="26" rx="5" fill="rgba(249,115,22,.05)" stroke="rgba(249,115,22,.2)" stroke-width=".8"/>
+      <text x="313" y="677" fill="#c8c8e8" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">Un bâton qui s'allonge. Gag.</text>
+
+      <!-- flèche -->
+      <line x1="420" y1="672" x2="560" y2="672" stroke="rgba(255,215,0,.15)" stroke-width="1"/>
+      <text x="490" y="665" fill="rgba(255,215,0,.3)" font-size="7.5" text-anchor="middle" font-family="Share Tech Mono,monospace">10 tomes · 4 ans</text>
+      <path class="flowarr" d="M430 672 L554 672" fill="none" stroke="rgba(255,215,0,.4)" stroke-width="1.2" marker-end="url(#mkG)"/>
+
+      <!-- tome 14 -->
+      <circle class="pulseEl" cx="588" cy="672" r="7" fill="rgba(255,215,0,.1)" stroke="#ffd700" stroke-width="2"/>
+      <circle cx="588" cy="672" r="2" fill="#ffd700"/>
+      <text x="588" y="695" fill="rgba(255,215,0,.5)" font-size="7.5" text-anchor="middle" font-family="Share Tech Mono,monospace">TOME 14</text>
+      <text x="588" y="658" fill="rgba(255,215,0,.4)" font-size="7" text-anchor="middle" font-family="Share Tech Mono,monospace">1988</text>
+
+      <rect x="618" y="660" width="220" height="26" rx="5" fill="rgba(255,215,0,.05)" stroke="rgba(255,215,0,.2)" stroke-width=".8"/>
+      <text x="728" y="677" fill="#ffe9a0" font-size="9" text-anchor="middle" font-family="Share Tech Mono,monospace">Pilier sacré du Palais de Dieu</text>
+
+      <!-- verdict mini -->
+      <rect x="870" y="656" width="258" height="34" rx="6" fill="rgba(239,68,68,.05)" stroke="rgba(239,68,68,.15)" stroke-width=".8"/>
+      <text x="999" y="670" fill="#ef9090" font-size="8" text-anchor="middle" font-family="Share Tech Mono,monospace">Planifié en 1984 pour un gag manga ?</text>
+      <text x="999" y="684" fill="#ef4444" font-size="9.5" font-weight="700" text-anchor="middle" font-family="Rajdhani,sans-serif" letter-spacing="1">ABSURDE → RETCON</text>
+    </svg>
+  </div>
+
+  <!-- ════════════════ CASCADE — 5 EXEMPLES ════════════════ -->
+  <p class="figtitle" style="align-self:flex-start">Appliquez le même raisonnement — <b>survolez chaque carte</b></p>
+  <div class="cascade">
+
+    <div class="ccard cc1">
+      <div class="ccard-head" style="color:#38bdf8">Kinto'un</div>
+      <div class="ccard-name" style="color:#38bdf8">Le nuage magique</div>
+      <div class="ccard-from">TOME 1 (1984) — Un nuage volant, cadeau comique de Kame Sennin.</div>
+      <div class="ccard-arrow">▼ TISSAGE ▼</div>
+      <div class="ccard-to">TOME 8 (1987) — Un nuage parmi des dizaines, stockés au sommet de la tour Karine.</div>
+      <div class="ccard-absurd">Pour que ce soit une révélation : Toriyama aurait conçu la tour Karine, le maître Karine, et le parc à nuages… en dessinant un gag du Saiyūki en 1984, pour un manga qu'il comptait boucler en 2 tomes.</div>
+      <div class="ccard-verdict">✗ ABSURDE → RETCON</div>
+    </div>
+
+    <div class="ccard cc2">
+      <div class="ccard-head" style="color:#f97316">Nyoibō</div>
+      <div class="ccard-name" style="color:#f97316">Le bâton magique</div>
+      <div class="ccard-from">TOME 1 (1984) — Un bâton qui s'allonge. Référence au Saiyūki, rien de plus.</div>
+      <div class="ccard-arrow">▼ TISSAGE ▼</div>
+      <div class="ccard-to">TOME 14 (1988) — Le pilier sacré reliant la tour Karine au Palais de Dieu.</div>
+      <div class="ccard-absurd">Pour que ce soit une révélation : Toriyama aurait planifié 14 tomes, la cosmologie verticale terre-tour-palais, et le rôle du Tout-Puissant… depuis le premier chapitre d'une parodie loufoque.</div>
+      <div class="ccard-verdict">✗ ABSURDE → RETCON</div>
+    </div>
+
+    <div class="ccard cc3">
+      <div class="ccard-head" style="color:#c084fc">Kame Sennin</div>
+      <div class="ccard-name" style="color:#c084fc">Le vieux maître</div>
+      <div class="ccard-from">TOME 2 (1985) — Un ermite pervers et comique sur une île minuscule.</div>
+      <div class="ccard-arrow">▼ TISSAGE ▼</div>
+      <div class="ccard-to">TOME 8+ (1987) — Ancien élève de Mutaito, rival de Tsuru Sennin, lignée martiale.</div>
+      <div class="ccard-absurd">Pour que ce soit une révélation : Toriyama aurait inventé Mutaito, la rivalité Kame/Tsuru, et toute une généalogie des arts martiaux… en dessinant un vieux pervers rigolo dans un manga comique.</div>
+      <div class="ccard-verdict">✗ ABSURDE → RETCON</div>
+    </div>
+
+    <div class="ccard cc4">
+      <div class="ccard-head" style="color:#4ade80">Dragon Balls</div>
+      <div class="ccard-name" style="color:#4ade80">Les 7 boules</div>
+      <div class="ccard-from">TOME 1 (1984) — Des boules magiques de conte de fées. Elles existent, c'est tout.</div>
+      <div class="ccard-arrow">▼ TISSAGE ▼</div>
+      <div class="ccard-to">TOME 14 (1988) — Créations du Tout-Puissant, liées à sa survie et à celle de Piccolo.</div>
+      <div class="ccard-absurd">Pour que ce soit une révélation : Toriyama aurait conçu le Tout-Puissant, Piccolo, leur fission, et la règle de survie des boules… en posant un MacGuffin de conte pour enfants.</div>
+      <div class="ccard-verdict">✗ ABSURDE → RETCON</div>
+    </div>
+
+    <div class="ccard cc5">
+      <div class="ccard-head" style="color:#fb7185">Piccolo</div>
+      <div class="ccard-name" style="color:#fb7185">Le roi démon</div>
+      <div class="ccard-from">TOME 13 (1987) — Le Grand Démon Piccolo. Un monstre maléfique, point.</div>
+      <div class="ccard-arrow">▼ TISSAGE ▼</div>
+      <div class="ccard-to">TOME 20 (1989) — Un alien Namek. Sa couleur, ses antennes, tout s'explique d'un coup.</div>
+      <div class="ccard-absurd">Pour que ce soit une révélation : Toriyama aurait inventé la planète Namek, une espèce entière, et la saga Saiyan… en dessinant un méchant de conte au tome 13.</div>
+      <div class="ccard-verdict">✗ ABSURDE → RETCON</div>
+    </div>
+
+  </div>
+
+  <!-- ── Bandeau final ── -->
+  <div class="rule">
+    ✦ La déduction vient en premier. L'interview vient en appui. Les conditions de production sont le juge — pas l'opinion du fan.<br>
+    Identifier un retcon, c'est de l'analyse de texte, pas du bavardage.
+  </div>
+</div>
+
+<div id="tip"></div>
+
+<script>
+// Stars
+(()=>{
+  const c=document.getElementById('stars');
+  for(let i=0;i<90;i++){
+    const d=document.createElement('div'),sz=Math.random()*1.8+.4;
+    d.style.cssText=`position:absolute;width:${sz}px;height:${sz}px;border-radius:50%;background:rgba(255,255,255,.8);left:${Math.random()*100}%;top:${Math.random()*100}%;animation:tw ${2+Math.random()*3}s ${Math.random()*4}s infinite alternate`;
+    c.appendChild(d);
+  }
+})();
+
+// Card touch toggle for mobile
+document.querySelectorAll('.ccard').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.ccard').forEach(o=>{if(o!==c)o.classList.remove('active')});
+    c.classList.toggle('active');
+  });
+});
+</script>
+</body>
+</html>
