@@ -224,6 +224,16 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
 .rail[data-mode=liste] .item:nth-child(1).on i{background:var(--c1);border-color:var(--c1)}
 .rail[data-mode=liste].trois .item:nth-child(2).on i{background:var(--c2);border-color:var(--c2)}
 .rail[data-mode=liste].trois .item:nth-child(3):not(.final).on i{background:var(--c3);border-color:var(--c3)}
+.side .arbre{display:flex;flex-direction:column;align-items:stretch;gap:0;margin-top:10px;font-size:13px;line-height:1.35}
+.side .arbre .q{background:var(--ink);color:#fff;border-radius:8px;padding:7px 10px;font-family:'Oswald',sans-serif;font-size:14px}
+.side .arbre .br{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0}
+.side .arbre .br>div{border-radius:8px;padding:6px 8px;position:relative}
+.side .arbre b{display:block;font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;color:var(--ink3)}
+.side .arbre .oui1{background:#fff3e8;outline:1.5px solid var(--c1)}
+.side .arbre .oui2{background:#eef2ff;outline:1.5px solid var(--c2)}
+.side .arbre .non3{background:#ecfdf3;outline:1.5px solid var(--c3)}
+.side .arbre .suite{background:var(--parchment);color:var(--ink3)}
+.side .equipe .pile>div{align-items:baseline}
 </style>
 </head>
 <body>
@@ -255,9 +265,29 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
 
   <h1>Analyse des récits avec les trois niveaux de lecture</h1>
 
-  <p class="lead">Nous allons explorer les trois niveaux de lecture qui permettent d'appréhender une œuvre de manière rigoureuse et complète.</p>
+  <section class="marges">
+  <aside class="rail trois" data-mode="liste" data-gagnant="1" aria-label="Où se place le lecteur" data-etapes='[["1er cercle","dans l&#39;histoire"],["2e cercle","dans la tête de l&#39;auteur"],["3e cercle","dans le monde réel"],["La règle","on ne sort du 1er que si on y est obligé"]]'>
+    <div class="fil">
+      <div class="fil-t">Où se place le lecteur ?</div>
+      <div class="fil-s">Le cercle de ce que vous lisez s'allume.</div>
+      <svg class="ronds" viewBox="0 0 160 160" aria-hidden="true">
+        <circle class="r3" cx="80" cy="80" r="72"/><circle class="r2" cx="80" cy="80" r="50"/><circle class="r1" cx="80" cy="80" r="28"/>
+        <text x="80" y="85" text-anchor="middle">1</text><text x="80" y="40" text-anchor="middle">2</text><text x="80" y="18" text-anchor="middle">3</text>
+      </svg>
+      <div class="track"></div>
+    </div>
+  </aside>
+  <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><i data-s="4"></i><span>règle</span></div>
+  <p class="lead" data-step="1">Nous allons explorer les trois niveaux de lecture qui permettent d'appréhender une œuvre de manière rigoureuse et complète.</p>
 
-  <p>Plus un récit est bon et bien écrit, plus il nous retient exclusivement au premier niveau de lecture, car ce niveau se suffit à lui-même. Lorsque l'univers fictif est vraisemblable, logique et immersif, le lecteur n'a aucune raison de sortir de ce cadre : les événements s'enchaînent naturellement, les personnages agissent en accord avec leurs motivations, et tout semble fluide et crédible.</p>
+  <aside class="side">
+    <div class="quote">
+      <q>On oublie presque qu'il s'agit d'une fiction.</q>
+      <div class="who">Le signe qu'on est au 1er cercle</div>
+      <p style="color:rgba(255,255,255,.8)">Tant qu'on ne se demande pas « pourquoi l'auteur a fait ça ? », on y est encore.</p>
+    </div>
+  </aside>
+  <p data-step="1">Plus un récit est bon et bien écrit, plus il nous retient exclusivement au premier niveau de lecture, car ce niveau se suffit à lui-même. Lorsque l'univers fictif est vraisemblable, logique et immersif, le lecteur n'a aucune raison de sortir de ce cadre : les événements s'enchaînent naturellement, les personnages agissent en accord avec leurs motivations, et tout semble fluide et crédible.</p>
   <p>C'est la lecture la plus épanouissante, car elle ne demande aucun effort supplémentaire : nous sommes pleinement plongés dans l'univers, oubliant presque qu'il s'agit d'une fiction.</p>
 
   <img class="img-full" src="images/cercles_bain.jpg" alt="Les 3 cercles de lecture"/>
@@ -268,9 +298,28 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
 
   <img class="img-full" src="images/cercle1_carte_monde.jpg" alt="1er cercle — Cohérence interne"/>
 
-  <p>Le premier niveau de lecture est toujours celui avec lequel on commence. Il repose sur la logique interne de l'univers et des personnages. Le lecteur accepte de suspendre son incrédulité tant que l'histoire respecte ses propres règles.</p>
+  <aside class="side">
+    <div class="card">
+      <div class="lbl">Lexique</div>
+      <h4>Suspension consentie d'incrédulité</h4>
+      <p>L'expression vient du poète anglais Samuel Taylor Coleridge, en 1817 : <em>willing suspension of disbelief</em>. Le lecteur accepte l'impossible… tant que le monde respecte ses propres règles.</p>
+    </div>
+  </aside>
+  <p data-step="1">Le premier niveau de lecture est toujours celui avec lequel on commence. Il repose sur la logique interne de l'univers et des personnages. Le lecteur accepte de suspendre son incrédulité tant que l'histoire respecte ses propres règles.</p>
   <p>Le cercle central représente le cœur du récit, l'univers fictif. Il repose sur trois piliers fondamentaux :</p>
 
+  <aside class="side">
+    <div class="card">
+      <div class="lbl">Exemple de règle</div>
+      <h4>Les Dragon Balls ont un règlement</h4>
+      <ul class="coche">
+        <li>ressusciter une personne morte de vieillesse</li>
+        <li>ressusciter deux fois la même personne (Shenron, exemple 03)</li>
+      </ul>
+      <p style="margin-top:8px">Une règle contournée sans explication ? Le lecteur sort du 1er cercle.</p>
+      <a href="#ex3" style="font-size:13.5px;color:var(--c2)">Voir l'exemple 03 →</a>
+    </div>
+  </aside>
   <div class="pillars">
     <div class="pillar c1"><strong>Logique des personnages</strong><p>Les actions et décisions des protagonistes doivent être cohérentes avec leur caractère, leurs motivations et les événements qui les entourent.</p></div>
     <div class="pillar c1"><strong>Règles et lois de l'univers fictif</strong><p>L'univers doit fonctionner selon ses propres lois internes. Par exemple, l'utilisation des Dragon Balls suit des règles définies — on ne peut pas ressusciter une personne morte de vieillesse.</p></div>
@@ -284,7 +333,16 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
 
   <img class="img-full" src="images/cercle2_engrenages.jpg" alt="2ème cercle — Intention de l'auteur"/>
 
-  <p>La deuxième lecture intervient lorsque la première montre des failles. Lorsque certains éléments deviennent incohérents — une décision de personnage qui semble artificielle, des événements forcés —, le lecteur est amené à chercher une explication en dehors de la logique interne du récit.</p>
+  <aside class="side">
+    <div class="card">
+      <div class="lbl">On change de question</div>
+      <div class="duo">
+        <div><b>1er cercle</b>« Comment est-ce possible dans ce monde ? »</div>
+        <div class="apres" style="background:#eef2ff;outline-color:rgba(29,78,216,.35)"><b style="color:var(--c2)">2e cercle</b>« Pourquoi l'auteur a-t-il écrit ça ? »</div>
+      </div>
+    </div>
+  </aside>
+  <p data-step="2">La deuxième lecture intervient lorsque la première montre des failles. Lorsque certains éléments deviennent incohérents — une décision de personnage qui semble artificielle, des événements forcés —, le lecteur est amené à chercher une explication en dehors de la logique interne du récit.</p>
   <p>Ce passage signifie que le lecteur a temporairement quitté l'univers fictif pour se questionner sur les choix de l'auteur.</p>
 
   <ul class="arrow">
@@ -292,6 +350,18 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
     <li>Pourquoi cet événement semble-t-il précipité ? Est-ce un choix narratif destiné à accélérer l'intrigue ?</li>
   </ul>
 
+  <aside class="side">
+    <div class="card">
+      <div class="lbl">Vu dans cet article</div>
+      <h4>Le 2e cercle au travail</h4>
+      <div class="pile">
+        <div><a href="#ex1" style="color:inherit">Krillin sent Cell</a><small>voix du narrateur</small></div>
+        <div><a href="#ex2" style="color:inherit">Vegetto absorbé</a><small>trop fort pour l'arc</small></div>
+        <div><a href="#ex4" style="color:inherit">Freezer revient</a><small>faire-valoir</small></div>
+        <div><a href="#ex5" style="color:inherit">Cell se téléporte</a><small>billet retour</small></div>
+      </div>
+    </div>
+  </aside>
   <div class="pillars">
     <div class="pillar c2"><strong>Intentions de l'auteur</strong><p>Comprendre pourquoi l'auteur fait certains choix narratifs — développement de personnages, changements dans l'intrigue, thèmes explorés.</p></div>
     <div class="pillar c2"><strong>Fils narratifs visibles ou invisibles</strong><p>Les connexions et trames, explicites ou implicites, qui lient des éléments de l'histoire entre eux.</p></div>
@@ -307,13 +377,33 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
 
   <img class="img-full" src="images/cercle3_meta.jpg" alt="3ème cercle — Cohérence méta"/>
 
-  <p>Le troisième niveau intervient lorsque les deux premiers échouent à justifier certaines invraisemblances. Il ne s'agit plus d'une démarche artistique ou narrative, mais d'une analyse mercantile et extra-narrative.</p>
+  <aside class="side">
+    <div class="card equipe">
+      <div class="lbl">Ceux qui écrivent aussi l'histoire</div>
+      <div class="pile">
+        <div><span>Akira Toriyama</span><small>l'auteur</small></div>
+        <div><span>Kazuhiko Torishima</span><small>l'éditeur au Jump</small></div>
+        <div><span>Toei Animation</span><small>l'anime</small></div>
+        <div><span>Bandai</span><small>jouets et jeux</small></div>
+      </div>
+      <p style="margin-top:8px">Au 3e cercle, on regarde au-delà de l'auteur.</p>
+    </div>
+  </aside>
+  <p data-step="3">Le troisième niveau intervient lorsque les deux premiers échouent à justifier certaines invraisemblances. Il ne s'agit plus d'une démarche artistique ou narrative, mais d'une analyse mercantile et extra-narrative.</p>
 
   <ul class="arrow">
     <li>Freezer et Broly deviennent « gentils » par pur fan service, sans véritable justification narrative.</li>
     <li>L'introduction de nouvelles transformations répond davantage à des attentes marketing qu'à une cohérence narrative.</li>
   </ul>
 
+  <aside class="side">
+    <div class="card">
+      <div class="lbl">Attention au piège</div>
+      <h4>Le 3e cercle n'est pas une excuse</h4>
+      <p>On n'y va qu'en dernier recours. Si le 2e cercle explique la scène, on s'arrête là. Dans les cinq exemples de l'article, il n'est jamais indispensable.</p>
+      <span class="stamp" style="color:var(--c3);border-color:var(--c3)">Dernier recours</span>
+    </div>
+  </aside>
   <div class="pillars">
     <div class="pillar c3"><strong>Contexte de production</strong><p>Les conditions économiques, éditoriales ou sociétales ayant influencé l'œuvre.</p></div>
     <div class="pillar c3"><strong>Succès commercial et produits dérivés</strong><p>L'impact de l'œuvre sur son époque et sa commercialisation.</p></div>
@@ -325,11 +415,25 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
   <!-- ══ HIÉRARCHIE ══ -->
   <h2 class="dark">Une progression naturelle, mais hiérarchisée</h2>
 
-  <div class="hierarchy">
+  <aside class="side">
+    <div class="card">
+      <div class="lbl">Outil</div>
+      <h4>Le test des trois cercles</h4>
+      <div class="arbre">
+        <div class="q">Ça tient dans l'histoire ?</div>
+        <div class="br"><div class="oui1"><b>Oui</b>1er cercle. On reste, on profite.</div><div class="suite"><b>Non</b>question suivante ↓</div></div>
+        <div class="q">L'auteur avait une raison de récit ?</div>
+        <div class="br"><div class="oui2"><b>Oui</b>2e cercle. On a compris.</div><div class="non3"><b>Non</b>3e cercle : le contexte.</div></div>
+      </div>
+    </div>
+  </aside>
+  <div class="hierarchy" data-step="4">
     <div class="h-row"><div class="h-num c1">1</div><div class="h-body"><strong>La cohérence interne — le plus important</strong><p>Un récit de qualité nous maintient dans ce cadre, car il fonctionne parfaitement par lui-même.</p></div></div>
     <div class="h-row"><div class="h-num c2">2</div><div class="h-body"><strong>L'intention de l'auteur — une béquille</strong><p>Il comble les lacunes lorsque des incohérences émergent, mais reflète généralement un défaut dans la construction narrative.</p></div></div>
     <div class="h-row"><div class="h-num c3">3</div><div class="h-body"><strong>La cohérence méta — hors de l'art</strong><p>Il appartient à une logique commerciale ou contextuelle, souvent imposée de l'extérieur.</p></div></div>
   </div>
+
+  </section>
 
   <p>Nous allons maintenant explorer chaque niveau à travers des exemples et des analyses détaillées.</p>
 
@@ -353,7 +457,7 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
   </aside>
   <!-- ── EXEMPLE 1 ── -->
   <div class="example">
-    <div class="ex-num">Exemple 01</div>
+    <div class="ex-num" id="ex1">Exemple 01</div>
     <div class="ex-title">Krillin détecte la puissance de Cell</div>
     <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><i data-s="4"></i><span>verdict</span></div>
 
@@ -418,7 +522,7 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
   </aside>
   <!-- ── EXEMPLE 2 ── -->
   <div class="example">
-    <div class="ex-num">Exemple 02</div>
+    <div class="ex-num" id="ex2">Exemple 02</div>
     <div class="ex-title">Vegetto se fait absorber par Buuhan</div>
     <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><i data-s="4"></i><span>verdict</span></div>
 
@@ -494,7 +598,7 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
   </aside>
   <!-- ── EXEMPLE 3 ── -->
   <div class="example">
-    <div class="ex-num">Exemple 03</div>
+    <div class="ex-num" id="ex3">Exemple 03</div>
     <div class="ex-title">Goku choisit de ne pas ressusciter</div>
     <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><span>verdict</span></div>
 
@@ -555,7 +659,7 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
   </aside>
   <!-- ── EXEMPLE 4 ── -->
   <div class="example">
-    <div class="ex-num">Exemple 04</div>
+    <div class="ex-num" id="ex4">Exemple 04</div>
     <div class="ex-title">Le retour de Freezer</div>
     <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><span>verdict</span></div>
 
@@ -568,7 +672,7 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
       <div class="card">
         <div class="lbl">Le compteur de Freezer</div>
         <ul class="coche">
-          <li>décapité</li><li>traversé par un disque</li><li>écrasé par une explosion planétaire</li>
+          <li>coupé en deux par son propre disque</li><li>écrasé par une explosion planétaire</li>
         </ul>
         <div class="meter" style="margin-top:8px"><span>Retours</span><b>1, et plus fort</b></div>
         <p style="margin-top:6px">« Réparé par la technologie » ne suffit pas.</p>
@@ -576,7 +680,7 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
     </aside>
     <div class="level c1" data-step="1">
       <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
-      <p>Freezer a subi des blessures fatales à plusieurs reprises — décapité, traversé par un disque, écrasé par une explosion planétaire. La justification que son corps fut réparé par la technologie semble insuffisante pour expliquer sa survie et son retour plus fort.</p>
+      <p>Freezer a subi des blessures fatales à plusieurs reprises — coupé en deux par son propre disque, écrasé par une explosion planétaire. La justification que son corps fut réparé par la technologie semble insuffisante pour expliquer sa survie et son retour plus fort.</p>
     </div>
 
     <div class="manga-grid" style="max-width:520px;margin-left:auto;margin-right:auto">
@@ -625,7 +729,7 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
   </aside>
   <!-- ── EXEMPLE 5 ── -->
   <div class="example">
-    <div class="ex-num">Exemple 05</div>
+    <div class="ex-num" id="ex5">Exemple 05</div>
     <div class="ex-title">Cell apprend le Shunkan Idō</div>
     <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><i data-s="4"></i><span>verdict</span></div>
 
@@ -721,10 +825,16 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
     }
     var pas = Array.prototype.map.call(sec.querySelectorAll('[data-step]'), function(el){ return +el.dataset.step; });
     etape(pas.length ? Math.min.apply(null, pas) : 1);
-    var obs = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting) etape(+e.target.dataset.step); });
-    }, {rootMargin:'-45% 0px -50% 0px'});
-    sec.querySelectorAll('[data-step]').forEach(function(el){ obs.observe(el); });
+    var pasEls = Array.prototype.slice.call(sec.querySelectorAll('[data-step]'));
+    var courant = 0;
+    function suivre(){
+      var milieu = window.innerHeight * 0.5, k = pasEls.length ? +pasEls[0].dataset.step : 1;
+      pasEls.forEach(function(el){ if(el.getBoundingClientRect().top < milieu) k = +el.dataset.step; });
+      if(k !== courant){ courant = k; etape(k); }
+    }
+    window.addEventListener('scroll', suivre, {passive:true});
+    window.addEventListener('resize', suivre);
+    suivre();
   });
 
   var notes = Array.prototype.slice.call(document.querySelectorAll('.marges .side'));
