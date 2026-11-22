@@ -112,9 +112,129 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
 .verdict{display:inline-block;font-family:'Oswald',sans-serif;font-size:19px;font-weight:700;color:var(--c3);background:rgba(21,128,61,.1);padding:6px 18px;border-radius:6px;margin-top:10px}
 .foot{margin-top:72px;padding-top:24px;border-top:2px solid var(--rule);font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--ink3);text-align:center;text-transform:uppercase}
 @media(max-width:600px){.wrap{padding:32px 16px 64px}.example{padding:20px 16px 18px}}
+
+/* ══ Marges illustrées ══
+   Fil thématique à gauche (sticky), notes à droite alignées sur leur paragraphe.
+   Au-dessus de 1340px : les deux marges. En dessous : notes en encarts dans le texte, fil en barre. */
+:root{--cloud:#f4b400;--cloudl:#fde68a}
+.marges{position:relative}
+.side{font-size:14.5px;line-height:1.55;color:var(--ink2);margin:6px 0 28px;max-width:520px}
+.side p{font-size:14.5px;margin:0;color:var(--ink2)}
+.side h4{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.25}
+.side .lbl{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;color:var(--c2);margin-bottom:4px}
+.side .card{background:#fff;border:1.5px solid var(--rule);border-radius:12px;padding:16px;box-shadow:0 3px 14px rgba(0,0,0,.05)}
+.side .fiche{background:linear-gradient(170deg,#fff 0 55%,#fff8e1);border:2px solid var(--ink);border-radius:14px;overflow:hidden;box-shadow:5px 5px 0 var(--ink);max-width:270px}
+.side .fiche .art{background:radial-gradient(circle at 50% 120%,#bfdbfe,#eff6ff 70%);height:118px;display:grid;place-items:center;border-bottom:2px solid var(--ink)}
+.side .fiche .art svg{width:150px;animation:nuage 4s ease-in-out infinite}
+@keyframes nuage{50%{transform:translateY(-6px)}}
+.side .fiche .bd{padding:12px 16px 14px}
+.side .fiche .nm{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--ink);line-height:1}
+.side .fiche .kj{font-size:13px;color:var(--ink3);margin-bottom:10px}
+.side .fiche dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:13.5px}
+.side .fiche dt{color:var(--ink3)}.side .fiche dd{color:var(--ink);font-weight:600}
+.side .know{border-left:3px solid var(--cloud);padding:2px 0 2px 14px}
+.side .know .big{font-family:'Oswald',sans-serif;font-size:30px;font-weight:700;color:var(--ink);line-height:1.05;margin-bottom:6px}
+.side svg.schema{width:100%;height:auto;display:block;margin:6px 0 8px}
+.side .meter{display:flex;justify-content:space-between;font-size:13.5px;margin-top:8px}
+.side .bar{height:8px;border-radius:4px;background:var(--parchment);overflow:hidden;margin-top:3px}
+.side .bar>div{height:100%;border-radius:4px;background:var(--c2)}
+.side .stamp{display:inline-block;margin-top:12px;font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;color:var(--c3);border:2px solid var(--c3);border-radius:6px;padding:2px 10px;transform:rotate(-3deg)}
+.side .slot{border:2px dashed #c9bfae;border-radius:14px;padding:16px;text-align:center;background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(0,0,0,.018) 10px 20px)}
+.side .slot svg{width:64px;opacity:.5;margin-bottom:6px}
+.side .slot p{font-size:13.5px;color:var(--ink3)}
+.side .quote{background:var(--ink);color:#fff;border-radius:14px;padding:18px 18px 16px;position:relative;margin-top:14px}
+.side .quote q{font-family:'Oswald',sans-serif;font-size:21px;font-weight:600;line-height:1.2;display:block;quotes:"« " " »"}
+.side .quote .who{font-size:13px;color:rgba(255,255,255,.6);margin:6px 0 12px}
+.side .quote a{font-size:14px;color:var(--cloudl);text-decoration:none;border-bottom:1px solid rgba(253,230,138,.4)}
+.side .quote svg{position:absolute;right:14px;top:-16px;width:48px}
+/* fil (gauche) */
+.rail{display:none}
+.rail .fil{position:sticky;top:28px}
+.rail .fil-t{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.rail .fil-s{font-size:13px;color:var(--ink3);line-height:1.4;margin-bottom:18px}
+.rail .track{position:relative;height:440px;margin-left:22px}
+.rail .track::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:repeating-linear-gradient(var(--rule) 0 4px,transparent 4px 8px)}
+.rail .tick{position:absolute;left:-3px;width:8px;height:1px;background:var(--ink3);opacity:.35}
+.rail .node{position:absolute;left:-7px;display:flex;align-items:center;gap:14px;transform:translateY(-50%)}
+.rail .node i{width:16px;height:16px;border-radius:50%;background:var(--bg);border:2.5px solid var(--ink3);flex:none;transition:all .3s}
+.rail .node b{font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:400;color:var(--ink3);display:block;line-height:1.2}
+.rail .node span{font-family:'Oswald',sans-serif;font-size:14px;color:var(--ink2);line-height:1.2}
+.rail .node.on i{background:var(--cloud);border-color:#b45309;box-shadow:0 0 0 5px rgba(244,180,0,.22)}
+.rail .node.on span{color:var(--ink);font-weight:600}
+.rail .node.later{opacity:.45}.rail .node.later i{border-style:dashed}
+.rail .puff{position:absolute;left:-22px;width:44px;transform:translateY(-50%);transition:top .7s cubic-bezier(.3,1.4,.5,1)}
+.rail .fil-end{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--ink3);margin:10px 0 0 4px}
+/* barre (petits écrans) */
+.mfil{display:flex;position:sticky;top:0;z-index:5;background:rgba(250,247,242,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule);padding:10px 0;gap:6px;align-items:center;margin:-8px 0 24px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--ink3)}
+.mfil i{flex:1;height:6px;border-radius:3px;background:var(--parchment)}
+.mfil i.on{background:var(--cloud)}
+.mfil i.later{background:repeating-linear-gradient(90deg,var(--parchment) 0 4px,transparent 4px 7px)}
+.mfil i.later.on{background:var(--cloud);opacity:.5}
+@media(min-width:1340px){
+  .side{position:absolute;left:calc(100% + 40px);width:250px;margin:6px 0 0}
+  .rail{display:block;position:absolute;right:calc(100% + 40px);top:0;bottom:0;width:200px}
+  .mfil{display:none}
+}
+@media(prefers-reduced-motion:reduce){.side .fiche .art svg{animation:none}.rail .puff,.rail .node i{transition:none}}
+/* fil « liste » (conditions à cocher) */
+.rail[data-mode=liste] .track{height:auto;margin:22px 0 0}
+.rail[data-mode=liste] .track::before{display:none}
+.rail .item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;opacity:.45;transition:opacity .3s}
+.rail .item i{width:26px;height:26px;border-radius:50%;border:2px solid var(--ink3);display:grid;place-items:center;font-style:normal;font-family:'Oswald',sans-serif;font-size:13px;color:var(--ink3);flex:none;transition:all .3s}
+.rail .item span{font-family:'Oswald',sans-serif;font-size:15px;color:var(--ink);line-height:1.2;display:block}
+.rail .item b{font-weight:400;font-size:12.5px;color:var(--ink3);line-height:1.35;display:block;margin-top:2px}
+.rail .item.on{opacity:1}
+.rail .item.on i{background:var(--c1);border-color:var(--c1);color:#fff}
+.rail .item.final{margin-top:8px;border-top:1px dashed var(--rule);padding-top:16px}
+.rail .item.final span{font-size:17px;font-weight:700}
+.rail .item.final.on span{color:var(--c1)}
+.rail .item.final.on i{background:var(--ink);border-color:var(--ink)}
+/* badges et petites briques des notes */
+.side .badge{width:56px;height:56px;flex:none}
+.side .duo{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.side .duo>div{background:var(--parchment);border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.4}
+.side .duo b{display:block;font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;color:var(--ink3);margin-bottom:4px}
+.side .duo>div.apres{background:#fff3e8;outline:1.5px solid rgba(194,65,12,.3)}
+.side .duo>div.apres b{color:var(--c1)}
+.side ul.coche{list-style:none;margin:8px 0 0;padding:0}
+.side ul.coche li{padding:4px 0 4px 24px;position:relative;font-size:13.5px;line-height:1.4}
+.side ul.coche li::before{content:"✗";position:absolute;left:2px;color:var(--c1);font-weight:700}
+.side ul.coche.oui li::before{content:"✓";color:var(--c3)}
+.side .bulle{position:relative;background:#fff;border:2.5px solid var(--ink);border-radius:50% / 42%;padding:22px 20px;text-align:center;font-family:'Oswald',sans-serif;font-size:16px;line-height:1.25;color:var(--ink)}
+.side .bulle::after{content:"";position:absolute;left:34px;bottom:-16px;border:9px solid transparent;border-top:14px solid var(--ink)}
+.side .tampon{position:absolute;right:-6px;top:-10px;font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;color:var(--c1);border:2.5px solid var(--c1);background:rgba(255,255,255,.85);border-radius:6px;padding:1px 8px;transform:rotate(8deg)}
+.side .big{font-family:'Oswald',sans-serif;font-size:40px;font-weight:700;color:var(--ink);line-height:1}
+.side .head{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.side .fiche.rouge{background:linear-gradient(170deg,#fff 0 55%,#fff1e6)}
+.side .fiche.rouge .art{background:radial-gradient(circle at 50% 120%,#fecaca,#fff7ed 70%)}
+.side .pile{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.side .pile div{border-radius:7px;padding:6px 10px;font-size:13.5px;display:flex;justify-content:space-between;gap:8px;background:var(--parchment)}
+.side .pile div.haut{background:#fff8e1;outline:1.5px solid #f4b400}
+.side .pile small{color:var(--ink3);font-size:12px}
+.side .jauge .r{font-size:13px;margin-top:10px;display:flex;justify-content:space-between}
+.side .jauge .b{height:14px;border-radius:7px;background:var(--parchment);overflow:hidden;margin-top:4px}
+.side .jauge .b>div{height:100%;border-radius:7px}
+.example .side .card{background:#fff}
+/* fil « trois cercles » */
+.rail .ronds{width:150px;height:150px;display:block;margin:14px 0 0 10px}
+.rail .ronds circle{fill:none;stroke-width:11;opacity:.16;transition:opacity .4s,stroke-width .4s}
+.rail .ronds .r1{stroke:var(--c1)}.rail .ronds .r2{stroke:var(--c2)}.rail .ronds .r3{stroke:var(--c3)}
+.rail[data-cur="1"] .r1,.rail[data-cur="2"] .r2,.rail[data-cur="3"] .r3{opacity:1;stroke-width:14}
+.rail .ronds text{font-family:'Oswald',sans-serif;font-size:13px;fill:var(--ink3)}
+.rail[data-mode=liste] .item:nth-child(1).on i{background:var(--c1);border-color:var(--c1)}
+.rail[data-mode=liste].trois .item:nth-child(2).on i{background:var(--c2);border-color:var(--c2)}
+.rail[data-mode=liste].trois .item:nth-child(3):not(.final).on i{background:var(--c3);border-color:var(--c3)}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="kinto" viewBox="0 0 120 64">
+    <path d="M18 56c-9 0-14-6-14-12s5-12 13-12c1-10 10-17 20-15 4-9 13-14 23-12 9 2 15 9 16 17 3-2 7-3 11-2 9 2 14 10 12 18 6 2 9 7 8 12-1 5-5 6-9 6z" fill="#f4b400" stroke="#1c1917" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M26 34c2-6 8-9 14-8M58 20c5-2 11 0 14 4M86 34c4-1 8 1 10 4" fill="none" stroke="#fde68a" stroke-width="3" stroke-linecap="round"/>
+    <path d="M100 52c6 0 10-2 12-6" fill="none" stroke="#1c1917" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
 
 <div class="edge-right"></div>
 
@@ -219,50 +339,104 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
   <h2 class="dark">Exemples appliqués : lire une scène avec les trois niveaux</h2>
   <p>Voici plusieurs exemples de scènes où l'on doit appliquer différents niveaux de lecture afin de comprendre leur vrai sens narratif.</p>
 
+  <section class="marges">
+  <aside class="rail trois" data-mode="liste" data-gagnant="2" aria-label="Les trois cercles appliqués" data-etapes='[["1er cercle","échoue : pourquoi Krillin ?"],["2e cercle","Krillin, voix du narrateur"],["3e cercle","inutile"],["Verdict","le 2e suffit"]]'>
+    <div class="fil">
+      <div class="fil-t">Les trois cercles</div>
+      <div class="fil-s">Lequel explique la scène ?</div>
+        <svg class="ronds" viewBox="0 0 160 160" aria-hidden="true">
+          <circle class="r3" cx="80" cy="80" r="72"/><circle class="r2" cx="80" cy="80" r="50"/><circle class="r1" cx="80" cy="80" r="28"/>
+          <text x="80" y="85" text-anchor="middle">1</text><text x="80" y="40" text-anchor="middle">2</text><text x="80" y="18" text-anchor="middle">3</text>
+        </svg>
+      <div class="track"></div>
+    </div>
+  </aside>
   <!-- ── EXEMPLE 1 ── -->
   <div class="example">
     <div class="ex-num">Exemple 01</div>
     <div class="ex-title">Krillin détecte la puissance de Cell</div>
+    <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><i data-s="4"></i><span>verdict</span></div>
 
+    <aside class="side">
+      <div class="card">
+        <div class="lbl">La question du 1er cercle</div>
+        <h4>Qui devrait sentir la puissance de Cell ?</h4>
+        <div class="jauge">
+          <div class="r"><span>Trunks</span><b>bien plus fort</b></div><div class="b"><div style="width:92%;background:var(--c2)"></div></div>
+          <div class="r"><span>Krillin</span><b>hors du combat</b></div><div class="b"><div style="width:18%;background:var(--c1)"></div></div>
+        </div>
+        <p style="margin-top:10px">Et c'est Krillin qui l'annonce. Rien dans les tomes précédents ne lui donne ce flair.</p>
+      </div>
+    </aside>
     <div class="manga-grid cols2">
       <img src="images/manga/ex1_krillin_cell_combat.jpg" alt="Krillin et Cell — combat"/>
       <img src="images/manga/ex1_trunks_krillin_cell.jpg" alt="Trunks et Krillin analysent Cell"/>
     </div>
 
-    <div class="level c1">
+    <div class="level c1" data-step="1">
       <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
       <p>Si on reste dans la logique interne du récit, on pourrait supposer que Krillin a une capacité de <em>power sense</em> supérieure à d'autres personnages.</p>
       <p>Cependant, en relisant les tomes précédents, rien ne confirme que Krillin possède une aptitude exceptionnelle dans ce domaine. Cette interprétation interne devient donc bancale.</p>
       <p>Le lecteur commence à percevoir une incohérence : pourquoi Krillin, et pas Trunks qui est pourtant bien plus fort ?</p>
     </div>
 
-    <div class="level c2">
+    <aside class="side">
+      <div class="card">
+        <div class="lbl">Lexique</div>
+        <h4>Le faire-valoir, voix du narrateur</h4>
+        <p>Un personnage qui ne peut plus agir sert à dire ce que le lecteur doit comprendre. Ici : « Cell cache une puissance immense ».</p>
+      </div>
+    </aside>
+    <div class="level c2" data-step="2">
       <div class="level-tag c2">🔵 2ème Cercle — Intention de l'auteur</div>
       <p>En appliquant le second cercle, cette scène devient compréhensible. Toriyama attribue ce rôle à Krillin pour lui donner une utilité narrative.</p>
       <p>Étant incapable de participer efficacement au combat, Krillin devient le « faire-valoir » et sert de voix du narrateur. Il verbalise ce que le lecteur doit comprendre : Cell cache une puissance immense et dangereuse.</p>
     </div>
 
-    <div class="level c3">
+    <div class="level c3" data-step="3">
       <div class="level-tag c3">🟢 3ème Cercle — Cohérence méta</div>
       <p>Ici, le troisième cercle est inutile. Le deuxième suffit à expliquer cette scène.</p>
     </div>
 
-    <div class="concl"><strong>Conclusion :</strong> Le 1er niveau échoue. Le 2ème supplée en révélant le rôle narratif de Krillin. Le 3ème est superflu — ce qui confirme qu'il n'intervient que quand les deux premiers ne suffisent pas.</div>
+    <div class="concl" data-step="4"><strong>Conclusion :</strong> Le 1er niveau échoue. Le 2ème supplée en révélant le rôle narratif de Krillin. Le 3ème est superflu — ce qui confirme qu'il n'intervient que quand les deux premiers ne suffisent pas.</div>
   </div>
+  </section>
 
   <img class="img-sep" src="images/porte_capsule_corp.jpg" alt="Capsule Corporation — passage à l'exemple suivant"/>
 
+  <section class="marges">
+  <aside class="rail trois" data-mode="liste" data-gagnant="2" aria-label="Les trois cercles appliqués" data-etapes='[["1er cercle","échoue : un plan absurde"],["2e cercle","se débarrasser de Vegetto"],["3e cercle","facultatif"],["Verdict","le 2e suffit"]]'>
+    <div class="fil">
+      <div class="fil-t">Les trois cercles</div>
+      <div class="fil-s">Lequel explique la scène ?</div>
+        <svg class="ronds" viewBox="0 0 160 160" aria-hidden="true">
+          <circle class="r3" cx="80" cy="80" r="72"/><circle class="r2" cx="80" cy="80" r="50"/><circle class="r1" cx="80" cy="80" r="28"/>
+          <text x="80" y="85" text-anchor="middle">1</text><text x="80" y="40" text-anchor="middle">2</text><text x="80" y="18" text-anchor="middle">3</text>
+        </svg>
+      <div class="track"></div>
+    </div>
+  </aside>
   <!-- ── EXEMPLE 2 ── -->
   <div class="example">
     <div class="ex-num">Exemple 02</div>
     <div class="ex-title">Vegetto se fait absorber par Buuhan</div>
+    <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><i data-s="4"></i><span>verdict</span></div>
 
     <div class="manga-grid cols2">
       <img src="images/manga/ex2_buuhan_absorption.jpg" alt="« 10 !! » « 9... » Vegetto : « Pourvu que ça marche... »"/>
       <img src="images/manga/ex2_vegeta_goku_buu_interieur.jpg" alt="Buu : « Il a baissé sa garde... » Vegetto : « J'avais fait exprès de sectionner cette espèce de queue qu'il porte sur la tête. » « 8... » « 7... »"/>
     </div>
 
-    <div class="level c1">
+    <aside class="side">
+      <div class="card">
+        <div class="lbl">Deux plans</div>
+        <div class="duo">
+          <div><b>Le plan de Vegetto</b>Se laisser absorber, compter sur une barrière jamais testée, chercher les autres à l'intérieur.</div>
+          <div class="apres"><b>Le plan « logique »</b>Tuer Buuhan, se téléporter sur Namek, tout réparer avec les Dragon Balls.</div>
+        </div>
+      </div>
+    </aside>
+    <div class="level c1" data-step="1">
       <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
       <p>Vegetto explique qu'il ne veut pas tuer Buuhan immédiatement pour récupérer les personnages absorbés. Mais ce plan est incohérent : il pourrait tuer Buuhan, se téléporter sur Namek et utiliser les Dragon Balls pour tout résoudre.</p>
       <p>La barrière protectrice qu'il utilise est un pari risqué — il ne l'a jamais utilisée et n'a aucune certitude qu'elle fonctionnera.</p>
@@ -273,7 +447,17 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
       <img src="images/manga/ex2_buuhan_protection.jpg" alt="Buu absorbe Vegetto — « C'est parti !! Protection !! »"/>
     </div>
 
-    <div class="level c2">
+    <aside class="side">
+      <div class="card">
+        <div class="lbl">Le problème Vegetto</div>
+        <div class="jauge">
+          <div class="r"><span>Puissance</span><b>écrasante</b></div><div class="b"><div style="width:100%;background:var(--c2)"></div></div>
+          <div class="r"><span>Suspense</span><b>proche de zéro</b></div><div class="b"><div style="width:4%;background:var(--c1)"></div></div>
+        </div>
+        <p style="margin-top:10px">Trop fort pour l'arc : l'auteur doit le faire disparaître.</p>
+      </div>
+    </aside>
+    <div class="level c2" data-step="2">
       <div class="level-tag c2">🔵 2ème Cercle — Intention de l'auteur</div>
       <p><strong>Intention principale :</strong> Toriyama veut se débarrasser de Vegetto, trop puissant pour maintenir le suspense. Garder Vegetto actif annulerait la tension de l'arc.</p>
       <p><strong>Construction narrative :</strong> L'auteur revient à des personnages moins invincibles — Goku et Vegeta — pour ramener de l'équilibre dramatique.</p>
@@ -285,27 +469,51 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
       <img src="images/manga/ex2_goku_vegeta_defusion.jpg" alt="Goku et Vegeta, défusionnés dans le corps de Buu : « Pourquoi la fusion a pris fin quand on a retiré la barrière ? »"/>
     </div>
 
-    <div class="level c3">
+    <div class="level c3" data-step="3">
       <div class="level-tag c3">🟢 3ème Cercle — Cohérence méta (facultatif)</div>
       <p>Ce niveau peut éclairer la décision sous un angle commercial, mais le 2ème cercle suffit.</p>
     </div>
 
-    <div class="concl"><strong>Conclusion :</strong> Le plan de Vegetto semble artificiellement complexe parce que l'auteur crée cette situation pour réorienter l'histoire — pas pour des raisons internes à l'univers.</div>
+    <div class="concl" data-step="4"><strong>Conclusion :</strong> Le plan de Vegetto semble artificiellement complexe parce que l'auteur crée cette situation pour réorienter l'histoire — pas pour des raisons internes à l'univers.</div>
   </div>
+  </section>
 
   <img class="img-sep" src="images/dr_brief_pod.jpg" alt="Dr Brief analyse le vaisseau spatial de Goku"/>
 
+  <section class="marges">
+  <aside class="rail trois" data-mode="liste" data-gagnant="1" aria-label="Les trois cercles appliqués" data-etapes='[["1er cercle","tient : la logique interne suffit"],["2e cercle","passer le flambeau à Gohan"],["Verdict","18/20"]]'>
+    <div class="fil">
+      <div class="fil-t">Les trois cercles</div>
+      <div class="fil-s">Lequel explique la scène ?</div>
+        <svg class="ronds" viewBox="0 0 160 160" aria-hidden="true">
+          <circle class="r3" cx="80" cy="80" r="72"/><circle class="r2" cx="80" cy="80" r="50"/><circle class="r1" cx="80" cy="80" r="28"/>
+          <text x="80" y="85" text-anchor="middle">1</text><text x="80" y="40" text-anchor="middle">2</text><text x="80" y="18" text-anchor="middle">3</text>
+        </svg>
+      <div class="track"></div>
+    </div>
+  </aside>
   <!-- ── EXEMPLE 3 ── -->
   <div class="example">
     <div class="ex-num">Exemple 03</div>
     <div class="ex-title">Goku choisit de ne pas ressusciter</div>
+    <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><span>verdict</span></div>
 
     <div class="manga-grid cols2">
       <img src="images/manga/ex3_shenron_impossible.jpg" alt="Shenron — impossible de ressusciter Goku"/>
       <img src="images/manga/ex3_goku_bulma_ennemis.jpg" alt="Goku — Bulma et les ennemis"/>
     </div>
 
-    <div class="level c1">
+    <aside class="side">
+      <div class="card">
+        <div class="lbl">Le 1er cercle tient</div>
+        <ul class="coche oui">
+          <li>Les ennemis viennent pour Goku : Vegeta, Freezer, les cyborgs</li>
+          <li>Gohan est désormais plus fort que son père</li>
+          <li>Bulma l'avait dit, la décision n'est pas arbitraire</li>
+        </ul>
+      </div>
+    </aside>
+    <div class="level c1" data-step="1">
       <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
       <p>Le dialogue où Bulma affirme que Goku attire les ennemis sur Terre est pertinent à la relecture : Vegeta, Freezer, les cyborgs ont tous un lien avec Goku. De plus, Gohan est désormais plus fort que son père et peut assumer la protection de la Terre. La logique interne tient.</p>
     </div>
@@ -315,27 +523,58 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
       <img src="images/manga/ex3_shenron_final_equipe.jpg" alt="Shenron — équipe finale"/>
     </div>
 
-    <div class="level c2">
+    <div class="level c2" data-step="2">
       <div class="level-tag c2">🔵 2ème Cercle — Intention de l'auteur</div>
       <p>L'intention de Toriyama de passer le flambeau à Gohan est évidente — il avait préparé le terrain depuis l'introduction du personnage. La décision de Goku renforce ce développement tout en justifiant sa retraite narrative.</p>
     </div>
 
-    <div class="concl"><span class="verdict">Verdict : 18/20</span></div>
+    <aside class="side">
+      <div class="know">
+        <div class="lbl">La note</div>
+        <div class="big">18/20</div>
+        <p>Un rare cas où les deux premiers cercles disent la même chose : l'histoire et l'auteur vont dans le même sens.</p>
+      </div>
+    </aside>
+    <div class="concl" data-step="3"><span class="verdict">Verdict : 18/20</span></div>
   </div>
+  </section>
 
   <img class="img-sep" src="images/dr_gero_lab.jpg" alt="Dr Gero — laboratoire"/>
 
+  <section class="marges">
+  <aside class="rail trois" data-mode="liste" data-gagnant="2" aria-label="Les trois cercles appliqués" data-etapes='[["1er cercle","échoue : trop de blessures fatales"],["2e cercle","un faire-valoir pour Trunks"],["Verdict","prétexte assumé"]]'>
+    <div class="fil">
+      <div class="fil-t">Les trois cercles</div>
+      <div class="fil-s">Lequel explique la scène ?</div>
+        <svg class="ronds" viewBox="0 0 160 160" aria-hidden="true">
+          <circle class="r3" cx="80" cy="80" r="72"/><circle class="r2" cx="80" cy="80" r="50"/><circle class="r1" cx="80" cy="80" r="28"/>
+          <text x="80" y="85" text-anchor="middle">1</text><text x="80" y="40" text-anchor="middle">2</text><text x="80" y="18" text-anchor="middle">3</text>
+        </svg>
+      <div class="track"></div>
+    </div>
+  </aside>
   <!-- ── EXEMPLE 4 ── -->
   <div class="example">
     <div class="ex-num">Exemple 04</div>
     <div class="ex-title">Le retour de Freezer</div>
+    <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><span>verdict</span></div>
 
     <div class="manga-grid cols2">
       <img src="images/manga/ex4_freezer_cell_1er_cercle.jpg" alt="Sur Namek, Freezer tranché par son propre disque"/>
       <img src="images/manga/ex4_flash_espace.jpg" alt="Sur Terre, Cold : « Tu veux l'attendre, Freezer ? Il reste trois heures avant que ton Super Saiyan arrive. » « Bien sûr, papa... »"/>
     </div>
 
-    <div class="level c1">
+    <aside class="side">
+      <div class="card">
+        <div class="lbl">Le compteur de Freezer</div>
+        <ul class="coche">
+          <li>décapité</li><li>traversé par un disque</li><li>écrasé par une explosion planétaire</li>
+        </ul>
+        <div class="meter" style="margin-top:8px"><span>Retours</span><b>1, et plus fort</b></div>
+        <p style="margin-top:6px">« Réparé par la technologie » ne suffit pas.</p>
+      </div>
+    </aside>
+    <div class="level c1" data-step="1">
       <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
       <p>Freezer a subi des blessures fatales à plusieurs reprises — décapité, traversé par un disque, écrasé par une explosion planétaire. La justification que son corps fut réparé par la technologie semble insuffisante pour expliquer sa survie et son retour plus fort.</p>
     </div>
@@ -344,7 +583,17 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
       <img src="images/manga/ex4_freezer_tranche.jpg" alt="Trunks découpe Freezer en morceaux"/>
     </div>
 
-    <div class="level c2">
+    <aside class="side">
+      <div class="card">
+        <div class="lbl">Avant / après</div>
+        <div class="duo">
+          <div><b>Sur Namek</b>L'ennemi ultime.</div>
+          <div class="apres"><b>Sur Terre</b>Balayé en quelques cases par un inconnu.</div>
+        </div>
+        <p style="margin-top:8px">S'il tombe si vite, la menace suivante sera pire.</p>
+      </div>
+    </aside>
+    <div class="level c2" data-step="2">
       <div class="level-tag c2">🔵 2ème Cercle — Intention de l'auteur</div>
       <p>L'auteur utilise Freezer comme outil narratif :</p>
       <ul class="arrow" style="margin-top:10px">
@@ -355,23 +604,48 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
     </div>
 
 
-    <div class="concl"><strong>Verdict :</strong> L'incohérence interne ne perturbe pas la trame car Freezer est rapidement éliminé. Son retour éphémère est un prétexte narratif assumé — illustrant parfaitement comment le 2ème cercle dépasse les limites du 1er.</div>
+    <div class="concl" data-step="3"><strong>Verdict :</strong> L'incohérence interne ne perturbe pas la trame car Freezer est rapidement éliminé. Son retour éphémère est un prétexte narratif assumé — illustrant parfaitement comment le 2ème cercle dépasse les limites du 1er.</div>
   </div>
+  </section>
 
 
   <img class="img-sep" src="images/porte_kame_house.jpg" alt="Maison Kamé — passage au dernier exemple"/>
 
+  <section class="marges">
+  <aside class="rail trois" data-mode="liste" data-gagnant="2" aria-label="Les trois cercles appliqués" data-etapes='[["1er cercle","échoue : trois failles"],["2e cercle","ramener Cell face à Gohan"],["3e cercle","inutile"],["Verdict","le 2e suffit"]]'>
+    <div class="fil">
+      <div class="fil-t">Les trois cercles</div>
+      <div class="fil-s">Lequel explique la scène ?</div>
+        <svg class="ronds" viewBox="0 0 160 160" aria-hidden="true">
+          <circle class="r3" cx="80" cy="80" r="72"/><circle class="r2" cx="80" cy="80" r="50"/><circle class="r1" cx="80" cy="80" r="28"/>
+          <text x="80" y="85" text-anchor="middle">1</text><text x="80" y="40" text-anchor="middle">2</text><text x="80" y="18" text-anchor="middle">3</text>
+        </svg>
+      <div class="track"></div>
+    </div>
+  </aside>
   <!-- ── EXEMPLE 5 ── -->
   <div class="example">
     <div class="ex-num">Exemple 05</div>
     <div class="ex-title">Cell apprend le Shunkan Idō</div>
+    <div class="mfil" aria-hidden="true"><span>1er</span><i data-s="1"></i><i data-s="2"></i><i data-s="3"></i><i data-s="4"></i><span>verdict</span></div>
 
     <div class="manga-grid cols2">
       <img src="images/manga/ex4_cold_freezer_attente.jpg" alt="Goku se téléporte face à Cell — Cell : « Il a disparu ! Quelle étrange technique... Quand est-ce qu'il l'a apprise ? »"/>
       <img src="images/manga/ex4_cell_ressuscite.jpg" alt="Cell gonfle pour s'autodétruire — Goku : « Bravo, Gohan, tu t'en es bien sorti. » « Hein ?! »"/>
     </div>
 
-    <div class="level c1">
+    <aside class="side">
+      <div class="card">
+        <div class="lbl">Le Shunkan Idō, mode d'emploi</div>
+        <div class="pile">
+          <div><span>Goku</span><small>appris sur Yardrat</small></div>
+          <div><span>Les autres</span><small>jamais en le voyant</small></div>
+          <div class="haut"><span>Cell</span><small>« grâce à Son Goku »</small></div>
+        </div>
+        <p style="margin-top:8px">Et la régénération ne devrait pas donner de pouvoirs nouveaux.</p>
+      </div>
+    </aside>
+    <div class="level c1" data-step="1">
       <div class="level-tag c1">🔴 1er Cercle — Cohérence interne</div>
       <p>Si on tente une explication avec le premier cercle, on se heurte à des incohérences :</p>
       <ul class="arrow" style="margin-top:10px">
@@ -386,24 +660,95 @@ ul.arrow li::before{content:'→';position:absolute;left:0;color:var(--goldb);fo
       <img src="images/manga/ex4_cell_teleportation.jpg" alt="Cell revient : « Voilà pourquoi me revoici devant vous, plus parfait que jamais... Et ce n'est pas tout, j'ai également appris la téléportation, grâce à Son Goku... »"/>
     </div>
 
-    <div class="level c2">
+    <aside class="side">
+      <div class="quote">
+        <q>J'ai également appris la téléportation, grâce à Son Goku…</q>
+        <div class="who">Cell, de retour</div>
+        <p style="color:rgba(255,255,255,.8)">Un billet retour pour l'affrontement final avec Gohan.</p>
+      </div>
+    </aside>
+    <div class="level c2" data-step="2">
       <div class="level-tag c2">🔵 2ème Cercle — Intention de l'auteur</div>
       <p>Face à ces failles, on doit basculer sur le second cercle. L'auteur avait besoin que Cell revienne sur Terre pour offrir une dernière confrontation dramatique avec Gohan.</p>
       <p>Le Shunkan Idō devient donc un artifice scénaristique pour le ramener d'un lieu où il aurait normalement dû rester bloqué.</p>
     </div>
 
-    <div class="level c3">
+    <div class="level c3" data-step="3">
       <div class="level-tag c3">🟢 3ème Cercle — Cohérence méta</div>
       <p>Le troisième cercle n'est pas nécessaire ici, car la décision narrative ne repose pas sur une logique commerciale ou externe à l'œuvre. C'est purement un choix scénaristique pour prolonger la tension du combat.</p>
     </div>
 
-    <div class="concl"><strong>Conclusion :</strong> Le 1er cercle échoue face à trois failles. Le 2ème suffit : la téléportation est l'outil qui ramène Cell pour l'affrontement final avec Gohan.</div>
+    <div class="concl" data-step="4"><strong>Conclusion :</strong> Le 1er cercle échoue face à trois failles. Le 2ème suffit : la téléportation est l'outil qui ramène Cell pour l'affrontement final avec Gohan.</div>
   </div>
+  </section>
 
   <img class="img-full" src="images/porte_esprit_temps.jpg" alt="Salle de l'Esprit et du Temps" style="margin-top:60px"/>
 
   <footer class="foot">Dragonballologie · Analyse narrative · Debat-Z</footer>
 
 </main>
+<script>
+/* ══ Marges illustrées : fil qui suit la lecture + notes qui ne se chevauchent pas ══
+   Fil « frise » : data-etapes = [[tome, "libellé", 1 si à venir], ...]  (tomes 1 → 17)
+   Fil « liste » : data-mode="liste", data-etapes = [["titre", "sous-titre"], ...]
+   Chaque élément du texte portant data-step="n" allume l'étape n quand il passe au milieu de l'écran. */
+(function(){
+  var LARGE = window.matchMedia('(min-width:1340px)');
+
+  document.querySelectorAll('.marges').forEach(function(sec){
+    var rail = sec.querySelector('.rail'), barre = sec.querySelector('.mfil');
+    if(!rail) return;
+    var etapes = JSON.parse(rail.dataset.etapes), liste = rail.dataset.mode === 'liste';
+    var track = rail.querySelector('.track'), puff = rail.querySelector('.puff'), html = '';
+    var T0 = 1, T1 = 17, y = function(t){ return ((t - T0) / (T1 - T0) * 100) + '%'; };
+    if(liste){
+      html = etapes.map(function(e, k){
+        return '<div class="item' + (k === etapes.length - 1 ? ' final' : '') + '" data-k="' + (k + 1) + '"><i>' + (k + 1) + '</i><div><span>' + e[0] + '</span>' + (e[1] ? '<b>' + e[1] + '</b>' : '') + '</div></div>';
+      }).join('');
+    } else {
+      for(var t = T0; t <= T1; t++) html += '<i class="tick" style="top:' + y(t) + '"></i>';
+      etapes.forEach(function(e, k){
+        html += '<div class="node' + (e[2] ? ' later' : '') + '" data-k="' + (k + 1) + '" style="top:' + y(e[0]) + '"><i></i><div><b>tome ' + e[0] + '</b><span>' + e[1] + '</span></div></div>';
+      });
+    }
+    track.insertAdjacentHTML('beforeend', html);
+    var nodes = track.querySelectorAll('[data-k]'), segs = barre ? barre.querySelectorAll('i') : [];
+    function etape(k){
+      nodes.forEach(function(n){ var d = +n.dataset.k; n.classList.toggle('on', d === k || (d < k && !n.classList.contains('later'))); });
+      segs.forEach(function(s){ s.classList.toggle('on', +s.dataset.s <= k); });
+      if(puff && !liste) puff.style.top = y(etapes[k - 1][0]);
+      rail.dataset.cur = (k === etapes.length && rail.dataset.gagnant) ? rail.dataset.gagnant : k;
+    }
+    var pas = Array.prototype.map.call(sec.querySelectorAll('[data-step]'), function(el){ return +el.dataset.step; });
+    etape(pas.length ? Math.min.apply(null, pas) : 1);
+    var obs = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting) etape(+e.target.dataset.step); });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    sec.querySelectorAll('[data-step]').forEach(function(el){ obs.observe(el); });
+  });
+
+  var notes = Array.prototype.slice.call(document.querySelectorAll('.marges .side'));
+  function placer(){
+    var bas = -1e9;
+    notes.forEach(function(n){
+      /* grand écran : la note précède son ancre (alignée en face) ; petit écran : elle la suit */
+      var ancre = n._ancre || (n._ancre = n.nextElementSibling);
+      if(LARGE.matches){ if(n.nextElementSibling !== ancre) ancre.before(n); }
+      else if(ancre.nextElementSibling !== n) ancre.after(n);
+      n.style.transform = '';
+      if(!LARGE.matches) return;
+      var haut = n.getBoundingClientRect().top + window.scrollY;
+      if(n.closest('.marges') !== (notes._sec || null)){ notes._sec = n.closest('.marges'); bas = -1e9; }
+      var decal = Math.max(0, bas + 24 - haut);
+      if(decal) n.style.transform = 'translateY(' + decal + 'px)';
+      bas = haut + decal + n.offsetHeight;
+    });
+    notes._sec = null;
+  }
+  var ro = new ResizeObserver(placer); ro.observe(document.body);
+  window.addEventListener('load', placer);
+  placer();
+})();
+</script>
 </body>
 </html>
